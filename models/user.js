@@ -1,8 +1,20 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
+const moment = require('moment-timezone');
+const datePerth = moment.tz(Date.now(), "Australia/Perth");
+
 // Create Schema
 const UserSchema = new Schema({
   emailAddress: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
     type: String,
     required: true,
   },
@@ -12,7 +24,7 @@ const UserSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now,
+    default: datePerth,
   },
 });
 module.exports = User = mongoose.model("users", UserSchema);
