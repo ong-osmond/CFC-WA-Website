@@ -1,10 +1,9 @@
-# Google-Book-Search
+# Couples for Christ Western Australia Website
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Description: 
-A Google Book Search app using React, Express and MongoDB.
-This is the link to a preview of the application: https://protected-basin-43986.herokuapp.com/ 
+Modernisation of the Couples for Christ Website using a full-stack MERN application.
 
 ## Table of Contents 
 * [Installation](#Installation) 
@@ -15,7 +14,7 @@ This is the link to a preview of the application: https://protected-basin-43986.
 * [License](#License)  
 
 ## Installation: 
-1. Clone the Budget-Tracker project files to your local machine using this link: https://github.com/ong-osmond/Google-Book-Search.git  
+1. Clone the project files.
 2. Install NODE.js on your machine. Find the latest version on https://nodejs.org/en/
 3. Open Git Bash or any Command Line tool and type in "NPM INSTALL". 
 4. Install MONGO DB and run the MONGO DB service on your machine.
@@ -24,25 +23,8 @@ Note: The config "SERVER.JS" file handles the connections in the Heroku environm
 
 ## Usage: 
 
-This is the app landing page:
-
-![Landing Page](client/public/assets/img/landing-page.png)
-
-To search for a book, enter the book's title and click on the Search Book button.
-
-A list of results will be displayed. To save a book, click on the book's Save Book button.
-
-![Search Page](client/public/assets/img/search-page.png)
-
-To view the list of saved books, click on the Saved link in the navigation bar.
-
-To delete a saved book, click on the book's Delete Book button.
-
-![Saved Books](client/public/assets/img/saved-books-page.png)
-
-
 ## Contributing: 
-Everyone is welcome to contribute to this project. Please email me at ong.osmond@yahoo.com or fork the project from GitHub to your own repository.
+This is a personal repository. Pull requests are not allowed unless you are a member of Couples for Christ.
 
 ## Tests: 
 No tests have been implemented yet.
