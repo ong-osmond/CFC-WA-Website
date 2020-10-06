@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === "production") {
 app.use("/api/users", users);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googleBooks"),
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/cfc-wa"),
 {
   useNewUrlParser: true,
   useUnifiedTopology: true,

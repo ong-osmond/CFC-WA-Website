@@ -1,1 +1,0 @@
-{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,cACI,UAAW,CACX,YAAa,CACb,cAAe,CACf,iBAAkB,CAClB,gEAA4C,CAE5C,mBAEA,CATJ,4BAMI,uBAAkC,CAElC,2BAFF,CANF,cACI,qBAAsB,CAGtB,UAAW,CACX,gBACF,CANF,OAAQ,kBACR,CADA,GAAI,oBAAqB,CAAzB,YACE,WAAY,CACZ,aACF","file":"main.0dd2cc05.chunk.css","sourcesContent":[".delete-btn {\r\n  float: right;\r\n  color: #e74944;\r\n}\r\n"]}
