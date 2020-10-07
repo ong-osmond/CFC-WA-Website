@@ -26,5 +26,27 @@ const UserSchema = new Schema({
     type: Date,
     default: datePerth,
   },
+  memberType: {
+    type: Array,
+    default: "guest",
+  },
+  birthDate: {
+    type: Date
+  },
+  sex: {
+    type: String
+  },
+  contactNo: {
+    type: Number
+  },
+  address : {
+    streetNumber : { type: String},
+    streetName: {type: String},
+    suburb: {type: String},
+    postCode: {type: Number},
+    state: {type: String}
+
+  }
+
 });
 module.exports = User = mongoose.model("users", UserSchema);

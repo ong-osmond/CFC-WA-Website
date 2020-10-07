@@ -11,6 +11,9 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
+import AdminApproveMember from "./components/admin/AdminApproveMember";
+
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -19,6 +22,7 @@ if (localStorage.jwtToken) {
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);
   // Set user and isAuthenticated
+  console.log(decoded);
   store.dispatch(setCurrentUser(decoded));
 // Check for expired token
   const currentTime = Date.now() / 1000; // to get in milliseconds
@@ -41,6 +45,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute path="/admin/approve-member" component={AdminApproveMember} />
             </Switch>
           </div>
         </Router>
