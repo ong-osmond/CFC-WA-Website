@@ -12,6 +12,7 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import AdminApproveMember from "./components/admin/AdminApproveMember";
+import EventsFeed from "./components/events/EventsFeed";
 
 
 // Check for token to keep user logged in
@@ -43,9 +44,11 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route path="/events/" component={EventsFeed} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute path="/admin/approve-member" component={AdminApproveMember} />
+              
             </Switch>
           </div>
         </Router>
