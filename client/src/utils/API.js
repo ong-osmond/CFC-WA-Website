@@ -5,5 +5,15 @@ export default {
   getUsers: function() {
     return axios.get("/api/users/users");
   }
+  ,
+
+  approveMember: function(id) {
+    return axios.put("/api/users/users/approve" + id);
+  }
+  ,
+
+  unapproveMember: function(id) {
+    return axios.put("/api/users/users/unapprove" + id);
+  }
   
 };

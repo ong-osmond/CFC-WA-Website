@@ -8,6 +8,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
+const { isValidObjectId } = require("mongoose");
 
 // @route POST api/users/register
 // @desc Register user
@@ -78,7 +79,7 @@ router.post("/login", (req, res) => {
           payload,
           keys.secretOrKey,
           {
-            expiresIn: 600 // 10 mins in seconds
+            expiresIn: 6000 // 100 mins in seconds
           },
           (err, token) => {
             res.json({
@@ -109,5 +110,39 @@ router.get("/users", (req, res) => {
   );
 }
 );
+
+// @route PUT api/users/approve
+// @desc PUT users
+// @access Private
+router.put("/users/approve:id", (req, res) => {
+  User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["member"] } }).then(
+    User.find({ }).then(users => {
+      // Check if users exist
+      if (!users) {
+        return res.status(404).json({ usersNotFound: "No users found." });
+      } else res.send(users);
+    }
+    )
+  )
+}
+);
+
+
+// @route PUT api/users/unapprove
+// @desc PUT users
+// @access Private
+router.put("/users/unapprove:id", (req, res) => {
+  User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["guest"] } }).then(
+    User.find({ }).then(users => {
+      // Check if users exist
+      if (!users) {
+        return res.status(404).json({ usersNotFound: "No users found." });
+      } else res.send(users);
+    }
+    )
+  )
+}
+);
+
 
 module.exports = router;

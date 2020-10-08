@@ -1,65 +1,103 @@
-import React, { Component , useState } from "react";
-import { Table , Form } from 'reactstrap';
+import React, { Component, useState } from "react";
+import { Table, Button } from 'reactstrap';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import API from "../../utils/API";
 
-const getUsers = () => {
-  API.getUsers();
-}
-
-let users = getUsers();
-console.log(`Users are ${users}`);
 
 class AdminApproveMember extends Component {
 
+  state = {
+    users: []
+  };
+
+  componentDidMount() {
+    this.loadUsers();
+  }
+
+  loadUsers = () => {
+    API.getUsers()
+      .then((res) => {
+        console.log(res.data);
+        this.setState({ users: res.data })
+      })
+      .catch(err => console.log(err));
+  };
+
+
+  approveMemberHandler = (id) => {
+    API.approveMember(id).then((res) => {
+      this.loadUsers()
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
+  unapproveMemberHandler = (id) => {
+    console.log(id);
+    API.unapproveMember(id).then((res) => {
+      this.loadUsers()
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutUser();
   };
-  
+
   render() {
     const { user } = this.props.auth;
-    
+
     return (
       user.memberType.includes("admin") ?
-      <Form>
-        <h1> Admin Approve Member</h1>
+
+
         <Table hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </Table>
-    </Form> :
-      <h1>You are not authorised to view this page.</h1>
-    ); 
+          <thead>
+            <tr>
+              <th>Email Address</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>User Role</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {this.state.users.map(result => (
+              <tr key={result._id}>
+                <td>{result.emailAddress}</td>
+                <td>{result.firstName}</td>
+                <td>{result.lastName}</td>
+                <td>{result.memberType}</td>
+                <td>
+                  {result.memberType == 'admin' &&
+                    <h1></h1>
+                  }
+                  {result.memberType == 'guest' &&
+                    <Button color="success" onClick={() => this.approveMemberHandler(result._id)}>Approve</Button>
+                  }
+                  {result.memberType == 'member' &&
+                    <Button color="danger" onClick={() => this.unapproveMemberHandler(result._id)}>Un-approve</Button>
+                  }
+
+                </td>
+              </tr>
+            ))}
+
+          </tbody>
+
+        </Table>
+
+        :
+        <h1>You are not authorised to view this page.</h1>
+    );
   }
 }
 AdminApproveMember.propTypes = {
