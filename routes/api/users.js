@@ -133,7 +133,7 @@ router.put("/users/approve:id", (req, res) => {
 // @desc PUT users
 // @access Private
 router.put("/users/unapprove:id", (req, res) => {
-  User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["guest"] } }).then(
+  User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["guest"] } }, {useFindAndModify : false}).then(
     User.find({ }).then(users => {
       // Check if users exist
       if (!users) {

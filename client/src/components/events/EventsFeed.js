@@ -81,12 +81,14 @@ class EventsFeed extends Component {
                                     <Media heading>
                                         {result.eventTitle}
                                     </Media>
-                                    {result.eventDescription}
+                                    <p>{result.eventDescription} </p> 
+                                    <p>When: {result.eventDate} </p>
+                                    <p>Event Type: {result.eventType} </p> 
                                     <Media>
-                                        {this.props.auth.user.memberType == 'admin' &&
+                                        {this.props.auth.isAuthenticated &&
                                             <Button color="success" onClick={() => this.joinHandler(result._id)}>Join</Button>
                                         }
-                                        {this.props.auth.user.memberType == 'admin' &&
+                                        {this.props.auth.isAuthenticated &&
                                             <Button color="danger" onClick={() => this.unjoinHandler(result._id)}>Unjoin</Button>
                                         }
                                     </Media>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import "../../css/style.css";
 
 
 class Navbar extends Component {
@@ -16,14 +17,14 @@ class Navbar extends Component {
     return (
       <div class="container">
         <div id="branding">
-          <h1><span class="highlight">Couples for Christ </span> WA</h1>
+          <h1><span class="highlight"> Couples for Christ </span> WA</h1>
         </div>
         <nav>
-          <li>
+          <li class="current">
             <Link
               to="/"
             >
-              About
+              Home
             </Link>
           </li>
           <li>
@@ -33,11 +34,12 @@ class Navbar extends Component {
               Events
             </Link>
           </li>
-          <li>
           {this.props.auth.isAuthenticated &&
-                          <Link to="dashboard">Dashboard</Link>
-                        }
-          </li>
+          <li>
+             <Link to="dashboard">Dashboard</Link>
+          </li>               
+          }
+          
           {this.props.auth.isAuthenticated ?
           <li>
             <Link

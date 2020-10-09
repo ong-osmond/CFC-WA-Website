@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import "../../css/style.css";
 
 class Landing extends Component {
   render() {
@@ -9,7 +10,26 @@ class Landing extends Component {
         <header>
           <Navbar />
         </header>
-        <h1>Landing Page</h1>
+
+        <section id="showcase">
+          <div class="container">
+            <h5>Families in the Holy Spirit, renewing the face of the earth</h5>
+          </div>
+        </section>
+
+        <section id="newsletter">
+          <div class="container">
+            <h5>Subscribe to our newsletter</h5>
+            <form>
+              <input type="email" placeholder="Enter email"/>
+              <button type="submit" class="button_1">Subscribe</button>
+            </form>
+          </div>
+        </section>
+
+        <footer>
+          <p>Osmond Ong Web Design, Copyright &copy; 2020</p>
+        </footer>
       
       </body>
     );

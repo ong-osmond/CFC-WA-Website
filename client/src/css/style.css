@@ -7,15 +7,35 @@ body {
 
 /*Global*/
 .container {
-    width:80%;
+    width:95%;
     margin: auto;
     overflow: hidden;
+}
+
+.button_1{
+    height: 25px;
+    background: #e8ca1d;
+    border: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #ffffff;
+}
+
+footer {
+    padding: 15px;
+    color: #000000;
+    background:  #e8ca1d;
+} 
+
+footer p{
+    text-align: center;
+    font-size: smaller;
 }
 
 header {
     background: #35424a;
     color: #ffffff;
-    padding-top: 30px;
+    padding-top: 20px;
     min-height: 70px;
     border-bottom: #e8ca1d 3px solid;
 }
@@ -74,6 +94,40 @@ header a:hover{
     font-size: 25px;
     margin-bottom: 10px;
 }
+
+#showcase{
+    min-height: 400px;
+    background: url('../images/cfcbg2.jpg') no-repeat;
+    background-size: 1300px 400px;
+    text-align: center;
+    color: #000000;
+}
+
+#showcase h5{
+    margin-top: 20px;
+    text-align: right;
+}
+
+#newsletter{
+    padding: 10px;
+    color: #ffffff;
+    background:  #35424a;
+} 
+
+#newsletter h5{
+    float: left;
+}
+
+#newsletter form{
+    float: right;
+}
+
+#newsletter input[type="email"] {
+    padding: 4px;
+    height: 25px;
+    width: 250px;
+}
+
 
 .login-box{
     width: 280px;
