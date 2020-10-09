@@ -67,37 +67,35 @@ class EventsFeed extends Component {
                 </header>
 
                 <section id="display">
-                    <div>
+                    <div class="container">
                         <h1>List of Events:</h1>
                         <hr></hr>
+
                         {this.state.events.map(result => (
-                            <Media>
+                            <div>
+                                <div class="eventfeedimg">
+                                    <p>{result.eventDate}</p>
+                                </div>
 
-                                <Media left top href="#">
-                                    <Media style={imgStyle} object src={DefaultImage} alt="Generic placeholder image" />
-                                </Media>
-
-                                <Media body>
-                                    <Media heading>
-                                        {result.eventTitle}
-                                    </Media>
-                                    <p>{result.eventDescription} </p> 
-                                    <p>When: {result.eventDate} </p>
-                                    <p>Event Type: {result.eventType} </p> 
-                                    <Media>
-                                        {this.props.auth.isAuthenticated &&
-                                            <Button color="success" onClick={() => this.joinHandler(result._id)}>Join</Button>
-                                        }
-                                        {this.props.auth.isAuthenticated &&
-                                            <Button color="danger" onClick={() => this.unjoinHandler(result._id)}>Unjoin</Button>
-                                        }
-                                    </Media>
-                                </Media>
-
-
-                            </Media>
+                                <div class="eventfeedmain">
+                                    <p><span class="highlight">{result.eventTitle} </span></p>
+                                    <p>{result.eventDescription}</p>
+                                    <p>{result.eventType}</p>
+                                   
+                                    {this.props.auth.isAuthenticated &&
+                                        <button type="submit" class="buttonGreen" color="red" onClick={() => this.joinHandler(result._id)}>Join</button>
+                                    }
+                                    {this.props.auth.isAuthenticated &&
+                                        <button type="submit" class="buttonRed" color="green" onClick={() => this.unjoinHandler(result._id)}>Unjoin</button>
+                                    }
+                                    
+                                    <hr maxWidth="50%"></hr>
+                                    
+                                </div>
+                            </div>
 
                         ))}
+
                     </div></section></body>
         );
     }

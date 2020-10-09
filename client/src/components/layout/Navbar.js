@@ -36,7 +36,7 @@ class Navbar extends Component {
           </li>
           {this.props.auth.isAuthenticated &&
           <li>
-             <Link to="dashboard">Dashboard</Link>
+             <Link to="/dashboard">Dashboard</Link>
           </li>               
           }
           

@@ -17,12 +17,16 @@ class Dashboard extends Component {
         <header>
           <Navbar />
         </header>
-        <Link
-              to="/admin/approve-member"
-            >
-              Approve Members
-            </Link>
+        <h1>Greetings in Christ, {user.firstName} {user.lastName}! Welcome to your Couples for Christ dashboard. </h1>
+        { user.memberType == "admin" &&
+          <Link
+            to="/admin/approve-member"
+          >
+            <h2>Approve Members</h2>
+          </Link>
+        }
       </body>
+
     );
   }
 }
