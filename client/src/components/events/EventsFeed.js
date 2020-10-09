@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import API from "../../utils/API";
-import DefaultImage from "./img/2020-Called-To-Holiness.jpg"
+import DefaultImage from "./img/2020-Called-To-Holiness.jpg";
+import Navbar from "../layout/Navbar"
+import "../../css/style.css";
 
 
 const imgStyle = {
     maxWidth: "64px",
-  };
+};
 
 class EventsFeed extends Component {
 
@@ -59,37 +61,42 @@ class EventsFeed extends Component {
     render() {
         const { user } = this.props.auth;
         return (
-            <div>
-                <h1>Events</h1>
-                <hr></hr>
-                {this.state.events.map(result => (
-                    <Media>
+            <body>
+                <header>
+                    <Navbar />
+                </header>
 
-                        <Media left top href="#">
-                            <Media style={imgStyle} object src={DefaultImage} alt="Generic placeholder image" />
-                        </Media>
-
-                        <Media body>
-                            <Media heading>
-                                {result.eventTitle}
-                            </Media>
-                            {result.eventDescription}
+                <section id="display">
+                    <div>
+                        <h1>List of Events:</h1>
+                        <hr></hr>
+                        {this.state.events.map(result => (
                             <Media>
-                            {this.props.auth.user.memberType == 'admin' &&
-                                <Button color="success" onClick={() => this.joinHandler(result._id)}>Join</Button>
-                            }
-                            {this.props.auth.user.memberType == 'admin' &&
-                                <Button color="danger" onClick={() => this.unjoinHandler(result._id)}>Unjoin</Button>
-                            }
+
+                                <Media left top href="#">
+                                    <Media style={imgStyle} object src={DefaultImage} alt="Generic placeholder image" />
+                                </Media>
+
+                                <Media body>
+                                    <Media heading>
+                                        {result.eventTitle}
+                                    </Media>
+                                    {result.eventDescription}
+                                    <Media>
+                                        {this.props.auth.user.memberType == 'admin' &&
+                                            <Button color="success" onClick={() => this.joinHandler(result._id)}>Join</Button>
+                                        }
+                                        {this.props.auth.user.memberType == 'admin' &&
+                                            <Button color="danger" onClick={() => this.unjoinHandler(result._id)}>Unjoin</Button>
+                                        }
+                                    </Media>
+                                </Media>
+
+
                             </Media>
-                        </Media>
 
-           ))
-
-                    </Media>
-
-                ))}
-            </div>
+                        ))}
+                    </div></section></body>
         );
     }
 }

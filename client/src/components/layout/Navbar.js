@@ -1,34 +1,73 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
+
+
 class Navbar extends Component {
+  onLogoutClick = (e) => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
+
   render() {
+    const { user } = this.props.auth;
     return (
-      <div className="navbar-fixed">
-        <nav className="z-depth-0">
-          <div className="nav-wrapper white">
+      <div class="container">
+        <div id="branding">
+          <h1><span class="highlight">Couples for Christ </span> WA</h1>
+        </div>
+        <nav>
+          <li>
             <Link
               to="/"
-              style={{
-                fontFamily: "monospace"
-              }}
-              className="col s5 brand-logo center black-text"
             >
-              <i className="material-icons">code</i>
-              Link One
+              About
             </Link>
+          </li>
+          <li>
             <Link
-              to="/"
-              style={{
-                fontFamily: "monospace"
-              }}
-              className="col s5 brand-logo center black-text"
+              to="/events"
             >
-              Link Two
+              Events
             </Link>
-          </div>
+          </li>
+          <li>
+          {this.props.auth.isAuthenticated &&
+                          <Link to="dashboard">Dashboard</Link>
+                        }
+          </li>
+          {this.props.auth.isAuthenticated ?
+          <li>
+            <Link
+              onClick={this.onLogoutClick}
+            >
+              Log Out
+            </Link>
+          
+          </li>
+          :
+          <li>
+            <Link
+              to="/login"
+            >
+              Log In
+            </Link>
+          </li>
+          }
         </nav>
       </div>
     );
   }
 }
-export default Navbar;
+//export default Navbar;
+
+Navbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps, { logoutUser })(Navbar);

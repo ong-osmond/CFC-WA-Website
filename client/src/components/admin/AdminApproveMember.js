@@ -3,6 +3,7 @@ import { Table, Button } from 'reactstrap';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import Navbar from "../layout/Navbar"
 import API from "../../utils/API";
 
 
@@ -57,43 +58,54 @@ class AdminApproveMember extends Component {
     return (
       user.memberType.includes("admin") ?
 
+        <body>
+          <header>
+            <Navbar />
+          </header>
 
-        <Table hover>
-          <thead>
-            <tr>
-              <th>Email Address</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>User Role</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
+          <section id="display">
+            <div>
+              <h1>Pending Approvals:</h1>
+              <br></br>
 
-            {this.state.users.map(result => (
-              <tr key={result._id}>
-                <td>{result.emailAddress}</td>
-                <td>{result.firstName}</td>
-                <td>{result.lastName}</td>
-                <td>{result.memberType}</td>
-                <td>
-                  {result.memberType == 'admin' &&
-                    <h1></h1>
-                  }
-                  {result.memberType == 'guest' &&
-                    <Button color="success" onClick={() => this.approveMemberHandler(result._id)}>Approve</Button>
-                  }
-                  {result.memberType == 'member' &&
-                    <Button color="danger" onClick={() => this.unapproveMemberHandler(result._id)}>Un-approve</Button>
-                  }
+              <Table hover>
+                <thead>
+                  <tr>
+                    <th>Email Address</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>User Role</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
 
-                </td>
-              </tr>
-            ))}
+                  {this.state.users.map(result => (
+                    <tr key={result._id}>
+                      <td>{result.emailAddress}</td>
+                      <td>{result.firstName}</td>
+                      <td>{result.lastName}</td>
+                      <td>{result.memberType}</td>
+                      <td>
+                        {result.memberType == 'admin' &&
+                          <h1></h1>
+                        }
+                        {result.memberType == 'guest' &&
+                          <Button color="success" onClick={() => this.approveMemberHandler(result._id)}>Approve</Button>
+                        }
+                        {result.memberType == 'member' &&
+                          <Button color="danger" onClick={() => this.unapproveMemberHandler(result._id)}>Un-approve</Button>
+                        }
 
-          </tbody>
+                      </td>
+                    </tr>
+                  ))}
 
-        </Table>
+                </tbody>
+
+              </Table>
+            </div></section>
+        </body>
 
         :
         <h1>You are not authorised to view this page.</h1>

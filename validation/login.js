@@ -9,9 +9,9 @@ module.exports = function validateLoginInput(data) {
   data.password = !isEmpty(data.password) ? data.password : "";
 // emailAddress checks
   if (Validator.isEmpty(data.emailAddress)) {
-    errors.emailAddress = "emailAddress field is required";
+    errors.emailAddress = "Email Address is required";
   } else if (!Validator.isEmail(data.emailAddress)) {
-    errors.emailAddress = "emailAddress is invalid";
+    errors.emailAddress = "Email Address is invalid";
   }
 // Password checks
   if (Validator.isEmpty(data.password)) {
