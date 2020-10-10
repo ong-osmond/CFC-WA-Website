@@ -9,6 +9,7 @@ import API from "../../utils/API";
 import DefaultImage from "./img/2020-Called-To-Holiness.jpg";
 import "../../css/style.css";
 import "react-datetime/css/react-datetime.css";
+import EventsFeed from "./EventsFeed";
 
 Moment.locale('en');
 
@@ -28,13 +29,11 @@ class EventForm extends Component {
         };
     }
 
-
     handleInputChange = (event) => {
         event.preventDefault();
         const { id, value } = event.target;
         this.setState({ ...this.state, [id]: value });
     }
-
 
     handleDateTimeChange = this.handleDateTimeChange.bind(this)
 
@@ -46,22 +45,26 @@ class EventForm extends Component {
 
     createEventHandler = () => {
         let request = {
-            eventTitle:  this.state.eventTitle ,
-            eventDescription:  this.state.eventDescription ,
-            eventType:  this.state.eventType ,
-            eventDate:  this.state.eventDate,
+            eventTitle: this.state.eventTitle,
+            eventDescription: this.state.eventDescription,
+            eventType: this.state.eventType,
+            eventDate: this.state.eventDate,
             eventVenue: this.state.eventVenue,
-            creator_id:  this.state.creator_id 
+            creator_id: this.state.creator_id
         }
         API.createEvent(request).then((res) => {
-            alert("Thank you for submitting an event. The Administrator will review the event before it is published.")
+            alert("Thank you for submitting an event. The Administrator will review the event before it is published.");
+            this.setState({
+                eventTitle: '',
+                eventDescription: '',
+                eventType: ''
+            });
         })
             .catch((err) => {
                 console.log(err);
             });
 
     }
-
 
     render() {
         const { user } = this.props.auth;
@@ -85,7 +88,7 @@ class EventForm extends Component {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="eventVenue">Venue</Label>
+                    <Label for="eventVenue">Venue or Online (Zoom) Link</Label>
                     <Input type="textarea" id="eventVenue" onChange={this.handleInputChange} />
                 </FormGroup>
                 <FormGroup>
@@ -96,6 +99,7 @@ class EventForm extends Component {
                         <option>Teaching</option>
                         <option>Prayer Meeting</option>
                         <option>Fellowship</option>
+                        <option>Other</option>
                     </Input>
                 </FormGroup>
                 {this.props.auth.isAuthenticated &&

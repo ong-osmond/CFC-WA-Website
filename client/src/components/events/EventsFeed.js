@@ -11,9 +11,7 @@ import Moment from 'moment';
 import EventForm from "./EventForm";
 import "../../css/style.css";
 
-
 Moment.locale('en');
-
 
 class EventsFeed extends Component {
 
@@ -29,6 +27,7 @@ class EventsFeed extends Component {
 
     toggle = () => {
         let toggledValue = !this.state.displayModal;
+        console.log("Toggled");
         this.setState({
             displayModal: toggledValue
         });
@@ -42,26 +41,36 @@ class EventsFeed extends Component {
     loadEvents = () => {
         API.getEvents()
             .then((res) => {
-                console.log(res.data);
                 this.setState({ events: res.data })
             })
             .catch(err => console.log(err));
     };
 
     joinHandler = (id) => {
-        API.joinEvent(id).then((res) => {
-            this.loadEvents()
-        })
+        let request = {
+            id: id,
+            participant_id: this.props.auth.user.id
+        }
+        API.joinEvent(request)
+            .then(() => {
+                alert("Thank you for joining this event!");
+                this.loadEvents()
+            })
             .catch((err) => {
                 console.log(err);
             });
     }
 
-    unjoinEventHandler = (id) => {
-        console.log(id);
-        API.unjoinEvent(id).then((res) => {
-            this.loadEvents()
-        })
+    unjoinHandler = (id) => {
+        let request = {
+            id: id,
+            participant_id: this.props.auth.user.id
+        }
+        API.unjoinEvent(request)
+            .then(() => {
+                alert("You have removed your participation for this event.");
+                this.loadEvents()
+            })
             .catch((err) => {
                 console.log(err);
             });
@@ -82,7 +91,7 @@ class EventsFeed extends Component {
                     <Navbar />
                 </header>
 
-
+                
                 <section id="display">
                     <div className="container">
                         {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
@@ -92,7 +101,7 @@ class EventsFeed extends Component {
                         <hr></hr>
 
                         <h1>Upcoming events</h1>
-                        
+
                         <hr></hr>
 
                         {this.state.events.map(result => (
@@ -111,15 +120,18 @@ class EventsFeed extends Component {
                                     <p><span className="highlight">{result.eventTitle} </span></p>
                                     <p>{result.eventDescription}</p>
                                     <p>{result.eventType}</p>
-
-                                    {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
-                                        this.props.auth.user.memberType == 'admin')
-                                        ?
-                                        <p><button type="submit" className="buttonGreen" color="red" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
-                                        <p>To join this event, please <Link to="/login">log In</Link> with your CFC WA Account.</p>
+                                    {
+                                        (result.eventParticipants) ?
+                                            result.eventParticipants.includes(user.id) ?
+                                            <p><button type="submit" className="buttonRed" onClick={() => this.unjoinHandler(result._id)}>Cancel your participation</button></p> :
+                                            this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
+                                                this.props.auth.user.memberType == 'admin') ?
+                                                <p><button type="submit" className="buttonGreen" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
+                                                <p>To join this event, please <Link to="/login">log In</Link> with your verified and approved CFC WA Account.</p>
+                                            :
+                                            <p></p>
                                     }
-
-
+                                    <p>Current number of participants: {result.eventParticipants.length}</p>
                                     <hr></hr>
                                 </div>
 

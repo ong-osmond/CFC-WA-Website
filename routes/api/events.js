@@ -31,7 +31,7 @@ router.post("/event/create", (req, res) => {
 // @access Public
 router.get("/events", (req, res) => {
     Event.find({ eventDate: { $gte: new Date() }}).sort( { eventDate : 1 } ).then(events => {
-      // Check if users exist
+      // Check if events exist
       if (!events) {
         return res.status(404).json({ eventsNotFound: "No events found." });
       } else res.send(events);
@@ -40,6 +40,34 @@ router.get("/events", (req, res) => {
   }
   );
 
+
+// @route PUT api/events/join 
+// @desc PUT events
+// @access Private
+router.put("/event/join:id", (req, res) => {
+    Event.findOneAndUpdate({_id : req.params.id}, { $push: { eventParticipants : req.body.participant_id } }).then(events => {
+      // Check if events exist
+      if (!events) {
+        return res.status(404).json({ eventsNotFound: "No such event found." });
+      } else res.send(events);
+    }
+    );
+  }
+  );
+
+  // @route PUT api/events/unjoin 
+// @desc PUT events
+// @access Private
+router.put("/event/unjoin:id", (req, res) => {
+  Event.findOneAndUpdate({_id : req.params.id}, { $pull: { eventParticipants : req.body.participant_id } }).then(events => {
+    // Check if events exist
+    if (!events) {
+      return res.status(404).json({ eventsNotFound: "No such event found." });
+    } else res.send(events);
+  }
+  );
+}
+);
 
 
 module.exports = router;
