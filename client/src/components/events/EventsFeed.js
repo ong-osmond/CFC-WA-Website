@@ -85,11 +85,14 @@ class EventsFeed extends Component {
 
                 <section id="display">
                     <div className="container">
-                        <h1>Upcoming events</h1>
                         {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
                             this.props.auth.user.memberType == 'admin') &&
                             <Button color="success" onClick={() => { this.toggle() }}>Add Event</Button>
                         }
+                        <hr></hr>
+
+                        <h1>Upcoming events</h1>
+                        
                         <hr></hr>
 
                         {this.state.events.map(result => (
@@ -112,7 +115,7 @@ class EventsFeed extends Component {
                                     {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
                                         this.props.auth.user.memberType == 'admin')
                                         ?
-                                        <button type="submit" className="buttonGreen" color="red" onClick={() => this.joinHandler(result._id)}>Join</button> :
+                                        <p><button type="submit" className="buttonGreen" color="red" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
                                         <p>To join this event, please <Link to="/login">log In</Link> with your CFC WA Account.</p>
                                     }
 

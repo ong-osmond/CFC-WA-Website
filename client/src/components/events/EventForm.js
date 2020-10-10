@@ -50,6 +50,7 @@ class EventForm extends Component {
             eventDescription:  this.state.eventDescription ,
             eventType:  this.state.eventType ,
             eventDate:  this.state.eventDate,
+            eventVenue: this.state.eventVenue,
             creator_id:  this.state.creator_id 
         }
         API.createEvent(request).then((res) => {
@@ -72,16 +73,20 @@ class EventForm extends Component {
                     <Input type="textarea" id="eventTitle" onChange={this.handleInputChange} />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="eventDescription">Event Description</Label>
+                    <Label for="eventDescription">Description</Label>
                     <Input type="textarea" id="eventDescription" onChange={this.handleInputChange} />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="eventDate">Event Date</Label>
+                    <Label for="eventDate">Date</Label>
                     <br></br>
                     <DatetimePicker
                         id="eventDate"
                         onChange={this.handleDateTimeChange}
                     />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="eventVenue">Venue</Label>
+                    <Input type="textarea" id="eventVenue" onChange={this.handleInputChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="eventType">Select an Event Type</Label>

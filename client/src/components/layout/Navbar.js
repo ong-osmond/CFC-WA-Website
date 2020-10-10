@@ -13,7 +13,7 @@ class Navbar extends Component {
   };
 
   render() {
-    const { user } = this.props.auth;
+
     return (
       <div class="container">
         <div id="branding">
@@ -34,13 +34,13 @@ class Navbar extends Component {
               Events
             </Link>
           </li>
-          {user.isAuthenticated &&
+          {this.props.auth.isAuthenticated &&
           <li>
              <Link to="/dashboard">Dashboard</Link>
           </li>               
           }
           
-          {user.isAuthenticated ?
+          {this.props.auth.isAuthenticated ?
           <li>
             <Link
               onClick={this.onLogoutClick}

@@ -4,8 +4,15 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Navbar from "../layout/Navbar"
+import Moment from 'moment';
+
 
 class Dashboard extends Component {
+
+  componentDidMount() {
+    let currentDate = Moment.now();
+}
+
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutUser();
@@ -21,7 +28,7 @@ class Dashboard extends Component {
         <section id="display">
           <div className="container">
             <h4>Greetings in Christ, {user.firstName} {user.lastName}!</h4>
-            <h6>Last Login: 10 October 2020</h6>
+            {/* <h6>Current date and time: {this.currentDate.format('ddd DD MMM yyyy hh:mm A')}</h6> */}
             <hr></hr>
 
             <section id="main">
@@ -33,7 +40,7 @@ class Dashboard extends Component {
                 <aside id="sidebar">
                   <div class="dark">
                     <h3>
-                      <p>{user.memberType === "admin" &&
+                      <p>{user.memberType == "admin" &&
                         <Link
                           to="/admin/approve-member"
                         >
@@ -41,7 +48,7 @@ class Dashboard extends Component {
                         </Link>
                       }</p>
 
-                      <p>{user.memberType === "admin" &&
+                      <p>{user.memberType == "admin" &&
                         <Link
                           to="/admin/approve-member"
                         >
@@ -49,7 +56,7 @@ class Dashboard extends Component {
                         </Link>
                       }</p>
 
-                      <p>{user.memberType === "admin" &&
+                      <p>{user.memberType == "admin" &&
                         <Link
                           to="/admin/approve-member"
                         >
