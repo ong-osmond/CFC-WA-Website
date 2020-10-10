@@ -56,102 +56,109 @@ class Register extends Component {
           <Navbar />
         </header>
 
-        <div className="login-box">
-          <div className="container">
-            <div className="row">
-              <div className="col s12 offset-s2">
+        <section id="login">
+          <div className="register-box">
 
-                <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+            <h4>Register</h4>
 
-                  <p className="grey-text text-darken-1">
-                    Already have an account? <Link to="/login">Log in</Link>
-                  </p>
-                </div>
-                <form noValidate onSubmit={this.onSubmit}>
-                  <div className="input-field col s12">
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.emailAddress}
-                      error={errors.emailAddress}
-                      id="emailAddress"
-                      type="emailAddress"
-                      className={classnames("", {
-                        invalid: errors.emailAddress,
-                      })}
-                    />
-                    <label htmlFor="emailAddress">Email Address</label>
-                    <span className="red-text">{errors.emailAddress}</span>
-                  </div>
-
-                  <div className="input-field col s12">
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.firstName}
-                      error={errors.firstName}
-                      id="firstName"
-                      type="text"
-                    />
-                    <label htmlFor="name">First Name</label>
-                  </div>
-
-                  <div className="input-field col s12">
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.lastName}
-                      error={errors.lastName}
-                      id="lastName"
-                      type="text"
-                    />
-                    <label htmlFor="name">Last Name</label>
-                  </div>
-
-                  <div className="input-field col s12">
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.password}
-                      error={errors.password}
-                      id="password"
-                      type="password"
-                      className={classnames("", {
-                        invalid: errors.password,
-                      })}
-                    />
-                    <label htmlFor="password">Password</label>
-                    <span className="red-text">{errors.password}</span>
-                  </div>
-                  <div className="input-field col s12">
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.password2}
-                      error={errors.password2}
-                      id="password2"
-                      type="password"
-                      className={classnames("", {
-                        invalid: errors.password2,
-                      })}
-                    />
-                    <label htmlFor="password2">Confirm Password</label>
-                    <span className="red-text">{errors.password2}</span>
-                  </div>
-                  <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                    <button
-                      style={{
-                        width: "150px",
-                        borderRadius: "3px",
-                        letterSpacing: "1.5px",
-                        marginTop: "1rem",
-                      }}
-                      type="submit"
-                      className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                    >
-                      Sign up
-                </button>
-                  </div>
-                </form>
+            <form noValidate onSubmit={this.onSubmit}>
+              <div class="registerfield">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.emailAddress}
+                  error={errors.emailAddress}
+                  id="emailAddress"
+                  type="emailAddress"
+                  placeholder="Email Address"
+                  className={classnames("", {
+                    invalid: errors.emailAddress,
+                  })}
+                />
+                <span>{errors.emailAddress}</span>
               </div>
-            </div>
+
+              <div class="registerfield">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.firstName}
+                  error={errors.firstName}
+                  id="firstName"
+                  type="text"
+                  placeholder="First Name"
+                />
+              </div>
+
+              <div class="registerfield">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.lastName}
+                  error={errors.lastName}
+                  id="lastName"
+                  type="text"
+                  placeholder="Last Name"
+                />
+              </div>
+
+              <div class="registerfield">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.password}
+                  error={errors.password}
+                  id="password"
+                  type="password"
+                  placeholder="Password"
+                  className={classnames("", {
+                    invalid: errors.password,
+                  })}
+                />
+                <span>{errors.password}</span>
+              </div>
+
+              <div class="registerfield">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.password2}
+                  error={errors.password2}
+                  id="password2"
+                  type="password"
+                  placeholder="Confirm Password"
+                  className={classnames("", {
+                    invalid: errors.password2,
+                  })}
+                />
+                <span>{errors.password2}</span>
+              </div>
+
+              <button
+                style={{
+                  width: "150px",
+                  borderRadius: "23px",
+                  borderColor: "#e8ca1d",
+                  borderWidth: "3px",
+                  letterSpacing: "1.5px",
+                  color: "#ffffff",
+                  marginTop: "1rem"
+                }}
+                type="submit"
+                class="btn"
+              >
+                Sign up
+                </button>
+
+            </form>
+
+            <p className="grey-text text-darken-1">
+              Already have an account? <Link to="/login">Log in</Link>
+            </p>
+
           </div>
-        </div>
+
+        </section>
+
+        <footer>
+          <p>Osmond Ong Web Design, Copyright &copy; 2020</p>
+        </footer>
+
       </body>
     );
   }

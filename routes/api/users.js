@@ -9,7 +9,6 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 const Event = require("../../models/Event");
-const { isValidObjectId } = require("mongoose");
 
 // @route POST api/users/register
 // @desc Register user

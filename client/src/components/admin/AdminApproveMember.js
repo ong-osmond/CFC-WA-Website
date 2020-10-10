@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Navbar from "../layout/Navbar"
 import API from "../../utils/API";
+import Moment from 'moment';
 
 
 class AdminApproveMember extends Component {
@@ -71,6 +72,7 @@ class AdminApproveMember extends Component {
               <Table hover>
                 <thead>
                   <tr>
+                    <th>Date of Signup</th>
                     <th>Email Address</th>
                     <th>First Name</th>
                     <th>Last Name</th>
@@ -82,6 +84,7 @@ class AdminApproveMember extends Component {
 
                   {this.state.users.map(result => (
                     <tr key={result._id}>
+                      <td>{Moment(result.date).format('ddd DD MMM yyyy')}</td>
                       <td>{result.emailAddress}</td>
                       <td>{result.firstName}</td>
                       <td>{result.lastName}</td>

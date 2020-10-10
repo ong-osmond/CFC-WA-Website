@@ -3,26 +3,18 @@ const router = express.Router();
 
 // Load Event model
 const Event = require("../../models/Event");
-const { isValidObjectId } = require("mongoose");
 
 // @route POST api/events/create
 // @desc Create event
 // @access Private
 router.post("/event/create", (req, res) => {
     // TODO: Validation
-
     const newEvent = new Event({
         creator_id: req.body.creator_id,
         eventTitle: req.body.eventTitle,
         eventDescription: req.body.eventDescription,
         eventDate: req.body.eventDate,
-        eventVenue: {
-            streetNumber: req.body.streetNumber,
-            streetName: req.body.streetName,
-            suburb: req.body.suburb,
-            postCode: req.body.postCode,
-            state: req.body.state
-        },
+        eventVenue: req.body.eventVenue,
         eventApproved: false,
         eventType: req.body.eventType
     });
@@ -34,11 +26,11 @@ router.post("/event/create", (req, res) => {
 }
 )
 
-// @route GET api/events/events
+// @route GET api/events/events 
 // @desc Get events
 // @access Public
 router.get("/events", (req, res) => {
-    Event.find({ }).then(events => {
+    Event.find({ eventDate: { $gte: new Date() }}).sort( { eventDate : 1 } ).then(events => {
       // Check if users exist
       if (!events) {
         return res.status(404).json({ eventsNotFound: "No events found." });

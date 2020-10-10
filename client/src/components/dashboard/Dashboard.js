@@ -17,14 +17,57 @@ class Dashboard extends Component {
         <header>
           <Navbar />
         </header>
-        <h1>Greetings in Christ, {user.firstName} {user.lastName}! Welcome to your Couples for Christ dashboard. </h1>
-        { user.memberType == "admin" &&
-          <Link
-            to="/admin/approve-member"
-          >
-            <h2>Approve Members</h2>
-          </Link>
-        }
+
+        <section id="display">
+          <div className="container">
+            <h4>Greetings in Christ, {user.firstName} {user.lastName}!</h4>
+            <h6>Last Login: 10 October 2020</h6>
+            <hr></hr>
+
+            <section id="main">
+              <div class="container">
+                <article id="main-col">
+                  <h1 class="page-title"> Welcome to your Couples for Christ dashboard. </h1>
+                </article>
+
+                <aside id="sidebar">
+                  <div class="dark">
+                    <h3>
+                      <p>{user.memberType === "admin" &&
+                        <Link
+                          to="/admin/approve-member"
+                        >
+                          Approve Members
+                        </Link>
+                      }</p>
+
+                      <p>{user.memberType === "admin" &&
+                        <Link
+                          to="/admin/approve-member"
+                        >
+                          Approve Events
+                        </Link>
+                      }</p>
+
+                      <p>{user.memberType === "admin" &&
+                        <Link
+                          to="/admin/approve-member"
+                        >
+                          Approve Stories
+                        </Link>
+                      }</p>
+
+                    </h3>
+                  </div>
+                </aside>
+
+              </div>
+            </section>
+
+
+
+          </div>
+        </section>
       </body>
 
     );

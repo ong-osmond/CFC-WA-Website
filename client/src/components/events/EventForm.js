@@ -1,57 +1,105 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import DatetimePicker from 'react-datetime';
+import Moment from 'moment';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import API from "../../utils/API";
 import DefaultImage from "./img/2020-Called-To-Holiness.jpg";
-import Navbar from "../layout/Navbar"
 import "../../css/style.css";
+import "react-datetime/css/react-datetime.css";
 
+Moment.locale('en');
 
 class EventForm extends Component {
 
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+            eventTitle: '',
+            eventDescription: '',
+            eventType: '',
+            eventDate: Moment.now(),
+            creator_id: this.props.auth.user.id
+
+        };
+    }
+
+
+    handleInputChange = (event) => {
+        event.preventDefault();
+        const { id, value } = event.target;
+        this.setState({ ...this.state, [id]: value });
+    }
+
+
+    handleDateTimeChange = this.handleDateTimeChange.bind(this)
+
+    // Receives the selected "moment" object as only parameter
+    handleDateTimeChange(date) {
+        // date ? date = date.format('DD/MMM/yyyy hh:mm') : date = '';
+        this.setState({ eventDate: date })
+    }
+
     createEventHandler = () => {
-        console.log(this);
-        // API.createEvent(this).then((res) => {
-        //     this.loadEvents()
-        // })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
+        let request = {
+            eventTitle:  this.state.eventTitle ,
+            eventDescription:  this.state.eventDescription ,
+            eventType:  this.state.eventType ,
+            eventDate:  this.state.eventDate,
+            creator_id:  this.state.creator_id 
+        }
+        API.createEvent(request).then((res) => {
+            alert("Thank you for submitting an event. The Administrator will review the event before it is published.")
+        })
+            .catch((err) => {
+                console.log(err);
+            });
+
     }
 
 
     render() {
         const { user } = this.props.auth;
         return (
-            <body>
-                <header>
-                    <Navbar />
-                </header>
-                <Form>
-                    <FormGroup>
-                        <Label for="eventTitle">Event Title</Label>
-                        <Input type="textarea" name="text" id="eventTitle" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="eventDescription">Event Description</Label>
-                        <Input type="textarea" name="text" id="eventDescription" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="eventType">Select an Event Type</Label>
-                        <Input type="select" name="select" id="eventType">
-                            <option>Chapter Assembly</option>
-                            <option>Teaching</option>
-                            <option>Prayer Meeting</option>
-                            <option>Fellowship</option>
-                        </Input>
-                    </FormGroup>
-                    {this.props.auth.isAuthenticated &&
-                        <Button color="success" onClick={() => this.createEventHandler()}>Create Event</Button>
-                    }
-                </Form>
-            </body>
+
+            <Form>
+                <FormGroup>
+                    <Label for="eventTitle">Event Title</Label>
+                    <Input type="textarea" id="eventTitle" onChange={this.handleInputChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="eventDescription">Event Description</Label>
+                    <Input type="textarea" id="eventDescription" onChange={this.handleInputChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="eventDate">Event Date</Label>
+                    <br></br>
+                    <DatetimePicker
+                        id="eventDate"
+                        onChange={this.handleDateTimeChange}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="eventType">Select an Event Type</Label>
+                    <Input type="select" id="eventType" onChange={this.handleInputChange}>
+                        <option default></option>
+                        <option>Chapter Assembly</option>
+                        <option>Teaching</option>
+                        <option>Prayer Meeting</option>
+                        <option>Fellowship</option>
+                    </Input>
+                </FormGroup>
+                {this.props.auth.isAuthenticated &&
+                    <Button color="success"
+
+                        onClick={this.createEventHandler}>Create Event</Button>
+                }
+            </Form>
+
         );
     }
 }

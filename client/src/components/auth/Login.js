@@ -74,12 +74,11 @@ class Login extends Component {
                     invalid: errors.emailAddress || errors.emailnotfound
                   })}
                 />
-               
+
                 <span>
                   {errors.emailAddress}
                   {errors.emailnotfound}
                 </span>
-                
 
               </div>
 
@@ -107,30 +106,33 @@ class Login extends Component {
               <button
                 style={{
                   width: "150px",
-                  borderRadius: "3px",
+                  borderRadius: "23px",
                   borderColor: "#e8ca1d",
+                  borderWidth: "3px",
                   letterSpacing: "1.5px",
-                  color: "#ffffff",
+                  color: "#000000",
                   marginTop: "1rem"
                 }}
                 type="submit"
                 class="btn">
-                Login
-                </button>
+                <b>Login</b>
+              </button>
 
 
               <p className="grey-text text-darken-1">
                 Don't have an account? <Link to="/register">Register</Link>
               </p>
 
-
-
             </form>
-
 
           </div>
 
         </section>
+
+        <footer>
+          <p>Osmond Ong Web Design, Copyright &copy; 2020</p>
+        </footer>
+
       </body>
     );
   }

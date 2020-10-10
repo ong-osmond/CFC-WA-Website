@@ -27,11 +27,7 @@ const EventSchema = new Schema({
     default: datePerth,
   },
   eventVenue: {
-    streetNumber: { type: String },
-    streetName: { type: String },
-    suburb: { type: String },
-    postCode: { type: Number },
-    state: { type: String }
+    type: String
   },
   eventParticipants: {
     type: Array

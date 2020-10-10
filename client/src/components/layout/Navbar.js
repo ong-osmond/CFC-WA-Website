@@ -34,13 +34,13 @@ class Navbar extends Component {
               Events
             </Link>
           </li>
-          {this.props.auth.isAuthenticated &&
+          {user.isAuthenticated &&
           <li>
              <Link to="/dashboard">Dashboard</Link>
           </li>               
           }
           
-          {this.props.auth.isAuthenticated ?
+          {user.isAuthenticated ?
           <li>
             <Link
               onClick={this.onLogoutClick}
