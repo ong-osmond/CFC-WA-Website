@@ -10,7 +10,8 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
-import AdminApproveMember from "./components/admin/AdminApproveMember";
+import AdminManageMembers from "./components/admin/AdminManageMembers";
+import AdminManageEvents from "./components/admin/AdminManageEvents";
 import EventsFeed from "./components/events/EventsFeed";
 import EventForm from "./components/events/EventForm";
 
@@ -47,7 +48,8 @@ class App extends Component {
 
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute exact path="/admin/approve-member" component={AdminApproveMember} />
+              <PrivateRoute exact path="/admin/members/manage" component={AdminManageMembers} />
+              <PrivateRoute exact path="/admin/events/manage" component={AdminManageEvents} />
               <PrivateRoute exact path="/events/create" component={EventForm} />
             </Switch>
           </div>

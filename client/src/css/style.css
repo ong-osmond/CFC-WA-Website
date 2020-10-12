@@ -1,9 +1,12 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css";
 
+
+
 body {
     font: 15px/1.5 Arial, Helvetica, sans-serif;
     padding:0;
-    margin:0;
+    margin-top: -8px;
+    padding-top: 16px;
     background-color:#f4f4f4;
 }
 
@@ -38,7 +41,7 @@ header {
     background: #35424a;
     color: #ffffff;
     padding-top: 20px;
-    min-height: 70px;
+    min-height: 50px;
     border-bottom: #e8ca1d 3px solid;
 }
 
@@ -71,7 +74,7 @@ header #branding h1 {
 
 header nav {
     float: right;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 header .highlight, header .current a {
@@ -302,7 +305,7 @@ header a:hover{
 aside#sidebar{
     float: right;
     width: 30%;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 /*Main-col*/
@@ -331,8 +334,8 @@ article#main-col{
 .sidebar {
     z-index: 1;
     background: #35424a;
-    position: fixed;
-    top: 90px;
+    position: relative;
+    top: 0px;
     width: 250px;
     height: calc(100% - 9%);
     transition: 0.3s;

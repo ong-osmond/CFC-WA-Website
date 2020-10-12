@@ -8,7 +8,6 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
-const Event = require("../../models/Event");
 
 // @route POST api/users/register
 // @desc Register user
@@ -97,11 +96,25 @@ router.post("/login", (req, res) => {
   });
 });
 
-// @route GET api/users/register
-// @desc Get users
+// @route GET api/users/
+// @desc Get all users
 // @access Private
 router.get("/users", (req, res) => {
   User.find({ }).then(users => {
+    // Check if users exist
+    if (!users) {
+      return res.status(404).json({ usersNotFound: "No users found." });
+    } else res.send(users);
+  }
+  );
+}
+);
+
+// @route GET api/users/pending
+// @desc Get all users pending approval
+// @access Private
+router.get("/pending", (req, res) => {
+  User.find({ memberType : "guest" }).then(users => {
     // Check if users exist
     if (!users) {
       return res.status(404).json({ usersNotFound: "No users found." });
@@ -116,7 +129,7 @@ router.get("/users", (req, res) => {
 // @access Private
 router.put("/users/approve:id", (req, res) => {
   User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["member"] } }).then(
-    User.find({ }).then(users => {
+    User.find({ } ).sort( { date : 1 } ).then(users => {
       // Check if users exist
       if (!users) {
         return res.status(404).json({ usersNotFound: "No users found." });
@@ -126,7 +139,6 @@ router.put("/users/approve:id", (req, res) => {
   )
 }
 );
-
 
 // @route PUT api/users/unapprove
 // @desc PUT users
@@ -144,5 +156,21 @@ router.put("/users/unapprove:id", (req, res) => {
 }
 );
 
+
+// @route PUT api/users/remove
+// @desc PUT users
+// @access Private
+router.put("/users/remove:id", (req, res) => {
+  User.remove({_id : req.params.id}, {justOne : true}).then(
+    User.find({ }).then(users => {
+      // Check if users exist
+      if (!users) {
+        return res.status(404).json({ usersNotFound: "No users found." });
+      } else res.send(users);
+    }
+    )
+  )
+}
+);
 
 module.exports = router;

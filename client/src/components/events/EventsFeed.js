@@ -68,7 +68,7 @@ class EventsFeed extends Component {
         }
         API.unjoinEvent(request)
             .then(() => {
-                alert("You have removed your participation for this event.");
+                alert("You have backed out of this event.");
                 this.loadEvents()
             })
             .catch((err) => {
@@ -96,7 +96,7 @@ class EventsFeed extends Component {
                     <div className="container">
                         {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
                             this.props.auth.user.memberType == 'admin') &&
-                            <Button color="success" onClick={() => { this.toggle() }}>Add Event</Button>
+                            <Button color="success" onClick={() => { this.toggle() }}>Add an Event</Button>
                         }
                         <hr></hr>
 
@@ -119,12 +119,12 @@ class EventsFeed extends Component {
 
                                 <div className="eventfeedmain">
                                     <p><span className="highlight">{result.eventTitle} </span></p>
-                                    <p>{result.eventDescription}</p>
-                                    <p>{result.eventType}</p>
+                                    <p>Details: {result.eventDescription}</p>
+                                    <p>Type of Event: {result.eventType}</p>
                                     {
                                         (result.eventParticipants) ?
                                             result.eventParticipants.includes(user.id) ?
-                                            <p><button type="submit" className="buttonRed" onClick={() => this.unjoinHandler(result._id)}>Cancel your participation</button></p> :
+                                            <p><button type="submit" className="buttonRed" onClick={() => this.unjoinHandler(result._id)}>Back out of event</button></p> :
                                             this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
                                                 this.props.auth.user.memberType == 'admin') ?
                                                 <p><button type="submit" className="buttonGreen" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
@@ -144,7 +144,7 @@ class EventsFeed extends Component {
 
 
                 <Modal isOpen={this.state.displayModal} >
-                    <ModalHeader >Add Event</ModalHeader>
+                    <ModalHeader >Add an Event</ModalHeader>
                     <ModalBody>
                         <EventForm />
                     </ModalBody>

@@ -39,7 +39,6 @@ class EventForm extends Component {
 
     // Receives the selected "moment" object as only parameter
     handleDateTimeChange(date) {
-        // date ? date = date.format('DD/MMM/yyyy hh:mm') : date = '';
         this.setState({ eventDate: date })
     }
 
@@ -96,9 +95,10 @@ class EventForm extends Component {
                     <Input type="select" id="eventType" onChange={this.handleInputChange}>
                         <option default></option>
                         <option>Chapter Assembly</option>
-                        <option>Teaching</option>
-                        <option>Prayer Meeting</option>
+                        <option>Christian Life Program</option>
                         <option>Fellowship</option>
+                        <option>Prayer Meeting</option>
+                        <option>Teaching</option>
                         <option>Other</option>
                     </Input>
                 </FormGroup>

@@ -8,7 +8,7 @@ import API from "../../utils/API";
 import Moment from 'moment';
 
 
-class AdminApproveMember extends Component {
+class AdminManageMembers extends Component {
 
   state = {
     users: []
@@ -39,8 +39,16 @@ class AdminApproveMember extends Component {
 
 
   unapproveMemberHandler = (id) => {
-    console.log(id);
     API.unapproveMember(id).then((res) => {
+      this.loadUsers()
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  removeMemberHandler = (id) => {
+    API.removeMember(id).then((res) => {
       this.loadUsers()
     })
       .catch((err) => {
@@ -57,7 +65,7 @@ class AdminApproveMember extends Component {
     const { user } = this.props.auth;
 
     return (
-      user.memberType.includes("admin") ?
+      this.props.auth.isAuthenticated && user.memberType.includes("admin") ?
 
         <body>
           <header>
@@ -66,7 +74,7 @@ class AdminApproveMember extends Component {
 
           <section id="display">
             <div>
-              <h1>Pending Approvals:</h1>
+              <h1>Manage Members</h1>
               <br></br>
 
               <Table hover>
@@ -77,7 +85,8 @@ class AdminApproveMember extends Component {
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>User Role</th>
-                    <th>Action</th>
+                    <th>Approve / Unapprove</th>
+                    <th>Remove User</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -101,6 +110,10 @@ class AdminApproveMember extends Component {
                         }
 
                       </td>
+                      {
+                        result.memberType != 'admin' &&
+                      <td><Button color="danger" onClick={() => this.removeMemberHandler(result._id)}>Remove</Button> </td>
+                      }
                     </tr>
                   ))}
 
@@ -115,11 +128,11 @@ class AdminApproveMember extends Component {
     );
   }
 }
-AdminApproveMember.propTypes = {
+AdminManageMembers.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps, { logoutUser })(AdminApproveMember);
+export default connect(mapStateToProps, { logoutUser })(AdminManageMembers);
