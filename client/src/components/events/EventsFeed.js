@@ -110,6 +110,7 @@ class EventsFeed extends Component {
                                     <h1>{Moment(result.eventDate).format('ddd DD MMM yyyy')}
                                     </h1>
                                     <p>{Moment(result.eventDate).format('hh:mm A')}    </p>
+                                    <hr width="80%" align="center"></hr> 
                                     {result.eventVenue &&
                                         <p>{result.eventVenue}</p>
                                     }

@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Navbar from "../layout/Navbar"
 import Moment from 'moment';
+import DefaultImage from "../../images/oong.jpg";
+
 
 
 class Dashboard extends Component {
@@ -24,57 +26,60 @@ class Dashboard extends Component {
         <header>
           <Navbar />
         </header>
+      
+      <div class="dashboard">
+      <div class="sidebar">
+        <div class="sidebar-menu">
+          <center class="profile">
+            <img src={DefaultImage}></img>
+              <p>Osmond</p>
+          </center>
+          
+          <li class="item">
+            <a href="#" class="menu-btn">
+              <i class="fas fa-desktop"></i><span>Dashboard</span>
+            </a>
+          </li>
+          <li class="item" id="profile">
+            <a href="#profile" class="menu-btn">
+              <i class="fas fa-users"></i><span>Members<i class="fas fa-chevron-down drop-down"></i></span>
+            </a>
+            <div class="sub-menu">
+              <a href="#"><i class="fas fa-image"></i><span>Pending Approval</span></a>
+              <a href="#"><i class="fas fa-address-card"></i><span>All Members</span></a>
+            </div>
+          </li>
+          <li class="item" id="messages">
+            <a href="#messages" class="menu-btn">
+              <i class="fas fa-calendar-week"></i><span>Events<i class="fas fa-chevron-down drop-down"></i></span>
+            </a>
+            <div class="sub-menu">
+              <a href="#"><i class="fas fa-envelope"></i><span>Pending Approval</span></a>
+              <a href="#"><i class="fas fa-envelope-square"></i><span>Approved</span></a>
+              <a href="#"><i class="fas fa-exclamation-circle"></i><span>Rejected</span></a>
+            </div>
+          </li>
+          <li class="item" id="settings">
+            <a href="#settings" class="menu-btn">
+              <i class="fas fa-newspaper"></i><span>Announcements<i class="fas fa-chevron-down drop-down"></i></span>
+            </a>
+            <div class="sub-menu">
+              <a href="#"><i class="fas fa-lock"></i><span>Pending Approval</span></a>
+              <a href="#"><i class="fas fa-language"></i><span>Archived</span></a>
+            </div>
+          </li>
+         
+        </div>
+      </div>
 
-        <section id="display">
-          <div className="container">
-            <h4>Greetings in Christ, {user.firstName} {user.lastName}!</h4>
-            {/* <h6>Current date and time: {this.currentDate.format('ddd DD MMM yyyy hh:mm A')}</h6> */}
-            <hr></hr>
+      
 
-            <section id="main">
-              <div class="container">
-                <article id="main-col">
-                  <h1 class="page-title"> Welcome to your Couples for Christ dashboard. </h1>
-                </article>
+      </div>
 
-                <aside id="sidebar">
-                  <div class="dark">
-                    <h3>
-                      <p>{user.memberType == "admin" &&
-                        <Link
-                          to="/admin/approve-member"
-                        >
-                          Approve Members
-                        </Link>
-                      }</p>
+      <div class="dash-main-container">
+        <p>Welcome, Osmond!</p>
+      </div>
 
-                      <p>{user.memberType == "admin" &&
-                        <Link
-                          to="/admin/approve-member"
-                        >
-                          Approve Events
-                        </Link>
-                      }</p>
-
-                      <p>{user.memberType == "admin" &&
-                        <Link
-                          to="/admin/approve-member"
-                        >
-                          Approve Stories
-                        </Link>
-                      }</p>
-
-                    </h3>
-                  </div>
-                </aside>
-
-              </div>
-            </section>
-
-
-
-          </div>
-        </section>
       </body>
 
     );
