@@ -5,7 +5,7 @@
 body {
     font: 10px/1.5 Arial, Helvetica, sans-serif;
     padding-top: 20px;
-    background-color:#f4f4f4;
+    background-color:#415a84;
 }
 
 /*Global*/
@@ -36,9 +36,9 @@ footer p{
 }
 
 header {
-    background: #35424a;
+    background: #415a84;
     color: #ffffff;
-    padding-top: 20px;
+    padding-top: 10px;
     min-height: 50px;
     border-bottom: #e8ca1d 3px solid;
 }
@@ -52,6 +52,7 @@ header {
     top: 0;
     left: 0;
 }
+
 
 ul{
     margin: 0px;
@@ -86,7 +87,12 @@ header nav {
 }
 
 header .highlight, header .current a {
-    color: #e8ca1d;
+    color: #415a84;
+    font-weight: bold;
+}
+
+header a{
+    color: #415a84;
     font-weight: bold;
 }
 
@@ -94,6 +100,7 @@ header a:hover{
     color:#cccccc;
     font-weight: bold;
 }
+
 
 /*Showcase */
 #display{
@@ -124,7 +131,7 @@ header a:hover{
 #newsletter{
     padding: 10px;
     color: #ffffff;
-    background:  #35424a;
+    background:  #415a84;
 } 
 
 #newsletter h5{
@@ -144,7 +151,7 @@ header a:hover{
 
 #login{
     min-height: 450px;
-    background: url('../images/invert2.png') no-repeat;
+    background: url('../images/cfcbg1_dark.jpg') no-repeat;
     background-size: 1300px 450px;
     text-align: center;
     color: #000000;
@@ -285,7 +292,7 @@ header a:hover{
 }
 
 .eventfeedmain .highlight{
-    color: #35424a;
+    color: #415a84;
     font-size: x-large;
     font-weight: bold;
 }
@@ -341,7 +348,7 @@ article#main-col{
 
 .sidebar {
     z-index: 1;
-    background: #35424a;
+    background: #415a84;
     position: relative;
     top: 0px;
     width: 250px;

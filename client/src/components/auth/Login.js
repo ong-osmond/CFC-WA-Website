@@ -110,7 +110,7 @@ class Login extends Component {
                   borderColor: "#e8ca1d",
                   borderWidth: "3px",
                   letterSpacing: "1.5px",
-                  color: "#000000",
+                  color: "#ffffff",
                   marginTop: "1rem"
                 }}
                 type="submit"
