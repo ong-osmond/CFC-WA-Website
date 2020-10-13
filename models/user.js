@@ -46,7 +46,13 @@ const UserSchema = new Schema({
     postCode: {type: Number},
     state: {type: String}
 
-  }
+  },
+  events: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Event"
+    }
+  ]
 
 });
-module.exports = User = mongoose.model("users", UserSchema);
+module.exports = User = mongoose.model("User", UserSchema);

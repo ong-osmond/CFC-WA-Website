@@ -95,7 +95,7 @@ class AdminManageEvents extends Component {
                   {this.state.events.map(result => (
                     <tr key={result._id}>
                       <td>{Moment(result.creationDate).format('ddd DD MMM yyyy')}</td>
-                      <td>{result.creator_id}</td>
+                      <td>{result.creator_details[0].firstName} {result.creator_details[0].lastName}</td>
                       <td>{result.eventTitle}</td>
                       <td>{Moment(result.eventDate).format('ddd DD MMM yyyy hh:mm A')}</td>
                       <td>{result.eventDescription}</td>

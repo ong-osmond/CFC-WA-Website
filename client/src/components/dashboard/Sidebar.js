@@ -52,7 +52,7 @@ class Sidebar extends Component {
                     {this.props.auth.isAuthenticated && this.props.auth.user.memberType == 'admin' &&
                     <li className="item" id="messages">
                         <a href="#messages" className="menu-btn">
-                            <i className="fas fa-calendar-week"></i><span>Events<i className="fas fa-chevron-down drop-down"></i></span>
+                            <i className="fas fa-calendar-week"></i><span>News<i className="fas fa-chevron-down drop-down"></i></span>
                         </a>
                         <div className="sub-menu">
                             <a href="/admin/events/manage"><i className="fas fa-envelope"></i><span>Manage Announcements</span></a>

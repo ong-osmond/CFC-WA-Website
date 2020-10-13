@@ -6,10 +6,13 @@ const datePerth = moment.tz(Date.now(), "Australia/Perth");
 
 // Create Schema
 const EventSchema = new Schema({
-  creator_id: {
-    type: String,
-    required: true
-  },
+  creator_id: 
+    [{
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }
+    ]
+,
   eventTitle: {
     type: String,
     required: true
@@ -29,9 +32,11 @@ const EventSchema = new Schema({
   eventVenue: {
     type: String
   },
-  eventParticipants: {
-    type: Array
-  },
+  eventParticipants: [{
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }
+  ],
   eventZoomID: {
     type: String
   },
@@ -44,4 +49,4 @@ const EventSchema = new Schema({
   }
 
 });
-module.exports = Event = mongoose.model("events", EventSchema);
+module.exports = Event = mongoose.model("Event", EventSchema);
