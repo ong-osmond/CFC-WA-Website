@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import NavbarImage from "../../images/CFC2020.jpg";
 // import "../../css/style.css";
 
 
@@ -18,11 +19,14 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
         <a className="nav-bar brand" id="branding">
-          <h1><span class="highlight"> Couples for Christ </span> WA</h1>
+          <h1 className="d-none d-sm-block"><span className="highlight"> Couples for Christ </span > WA</h1>
+          <h1 className="d-block d-sm-none"><span className="highlight"> CFC </span > WA
+            </h1>
+          <button className="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
         </a>
-        <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
+
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
             <li>

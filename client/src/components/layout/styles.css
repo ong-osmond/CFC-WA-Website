@@ -1,4 +1,3 @@
-.navbar .navbar-toggle .icon-bar {
-  background-color: white;
-  border-bottom: #e8ca1d 3px solid;
+.navbar {
+  font-size: 10px;
 }

@@ -53,6 +53,7 @@ class EventForm extends Component {
         }
         API.createEvent(request).then((res) => {
             alert("Thank you for submitting an event. The Administrator will review the event before it is published.");
+            this.props.toggleModal();
             this.setState({
                 eventTitle: '',
                 eventDescription: '',

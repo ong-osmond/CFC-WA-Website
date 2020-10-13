@@ -1,5 +1,7 @@
 import React, { Component, useState } from "react";
-import { Table, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
@@ -73,35 +75,35 @@ class AdminManageEvents extends Component {
 
           <section id="display">
             <div>
-              <h1>Pending Approvals:</h1>
+              <h1>Manage Events</h1>
               <br></br>
 
               <Table hover>
-                <thead>
-                  <tr>
-                    <th>Event Creation Date</th>
-                    <th>Created by</th>
-                    <th>Event Title</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Venue</th>
-                    <th>Current Number of Participants</th>
-                    <th>Approve / Unapprove</th>
-                    <th>Remove Event</th>
-                  </tr>
-                </thead>
-                <tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Event Creation Date</Th>
+                    <Th>Created by</Th>
+                    <Th>Event Title</Th>
+                    <Th>Date</Th>
+                    <Th>Description</Th>
+                    <Th>Venue</Th>
+                    <Th>Participants</Th>
+                    <Th>Approve / Unapprove</Th>
+                    <Th>Remove Event</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
 
                   {this.state.events.map(result => (
-                    <tr key={result._id}>
-                      <td>{Moment(result.creationDate).format('ddd DD MMM yyyy')}</td>
-                      <td>{result.creator_details[0].firstName} {result.creator_details[0].lastName}</td>
-                      <td>{result.eventTitle}</td>
-                      <td>{Moment(result.eventDate).format('ddd DD MMM yyyy hh:mm A')}</td>
-                      <td>{result.eventDescription}</td>
-                      <td>{result.eventVenue}</td>
-                      <td>{result.eventParticipants.length}</td>
-                      <td>
+                    <Tr key={result._id}>
+                      <Td>{Moment(result.creationDate).format('ddd DD MMM yyyy')}</Td>
+                      <Td>{result.creator_details[0].firstName} {result.creator_details[0].lastName}</Td>
+                      <Td>{result.eventTitle}</Td>
+                      <Td>{Moment(result.eventDate).format('ddd DD MMM yyyy hh:mm A')}</Td>
+                      <Td>{result.eventDescription}</Td>
+                      <Td>{result.eventVenue}</Td>
+                      <Td>{result.eventParticipants.length}</Td>
+                      <Td>
                         {user.memberType == 'admin' && !result.eventApproved &&
                           <Button color="success" onClick={() => this.approveEventHandler(result._id)}>Approve</Button>
                         }
@@ -109,15 +111,15 @@ class AdminManageEvents extends Component {
                           <Button color="danger" onClick={() => this.unapproveEventHandler(result._id)}>Un-approve</Button>
                         }
 
-                      </td>
+                      </Td>
                       {
                         result.memberType != 'admin' &&
-                      <td><Button color="danger" onClick={() => this.removeEventHandler(result._id)}>Remove</Button> </td>
+                      <Td><Button color="danger" onClick={() => this.removeEventHandler(result._id)}>Remove</Button> </Td>
                       }
-                    </tr>
+                    </Tr>
                   ))}
 
-                </tbody>
+                </Tbody>
 
               </Table>
             </div></section>

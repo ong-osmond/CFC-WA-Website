@@ -27,7 +27,6 @@ class EventsFeed extends Component {
 
     toggle = () => {
         let toggledValue = !this.state.displayModal;
-        console.log("Toggled");
         this.setState({
             displayModal: toggledValue
         });
@@ -89,9 +88,12 @@ class EventsFeed extends Component {
             <body>
                 <header>
                     <Navbar />
+                    {/* <div class="header-overlay">
+                        This is the overlay
+                      </div> */}
                 </header>
 
-                
+
                 <section id="display">
                     <div className="container">
                         {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
@@ -110,7 +112,7 @@ class EventsFeed extends Component {
                                     <h1>{Moment(result.eventDate).format('ddd DD MMM yyyy')}
                                     </h1>
                                     <p>{Moment(result.eventDate).format('hh:mm A')}    </p>
-                                    <hr width="80%" align="center"></hr> 
+                                    <hr width="80%" align="center"></hr>
                                     {result.eventVenue &&
                                         <p>{result.eventVenue}</p>
                                     }
@@ -124,11 +126,11 @@ class EventsFeed extends Component {
                                     {
                                         (result.eventParticipants) ?
                                             result.eventParticipants.includes(user.id) ?
-                                            <p><button type="submit" className="buttonRed" onClick={() => this.unjoinHandler(result._id)}>Back out of event</button></p> :
-                                            this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
-                                                this.props.auth.user.memberType == 'admin') ?
-                                                <p><button type="submit" className="buttonGreen" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
-                                                <p>To join this event, please <Link to="/login">log In</Link> with your verified and approved CFC WA Account.</p>
+                                                <p><button type="submit" className="buttonRed" onClick={() => this.unjoinHandler(result._id)}>Back out of event</button></p> :
+                                                this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
+                                                    this.props.auth.user.memberType == 'admin') ?
+                                                    <p><button type="submit" className="buttonGreen" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
+                                                    <p>To join this event, please <Link to="/login">log In</Link> with your verified and approved CFC WA Account.</p>
                                             :
                                             <p></p>
                                     }
@@ -146,7 +148,7 @@ class EventsFeed extends Component {
                 <Modal isOpen={this.state.displayModal} >
                     <ModalHeader >Add an Event</ModalHeader>
                     <ModalBody>
-                        <EventForm />
+                        <EventForm toggleModal={this.toggle} />
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" onClick={() => { this.toggle() }}>Cancel</Button>
