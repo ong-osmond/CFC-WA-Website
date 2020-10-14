@@ -7,7 +7,7 @@ const keys = require("../../config/keys");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 // Load User model
-const User = require("../../models/User");
+// const User = require("../../models/User");
 
 // Load all models
 const db = require("../../models");
@@ -22,7 +22,7 @@ router.post("/register", (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  User.findOne({ emailAddress: req.body.emailAddress }).then(user => {
+  db.User.findOne({ emailAddress: req.body.emailAddress }).then(user => {
     if (user) {
       return res.status(400).json({ emailAddress: "Email Address already exists" });
     } else {
@@ -60,7 +60,7 @@ router.post("/login", (req, res) => {
   const emailAddress = req.body.emailAddress;
   const password = req.body.password;
   // Find user by emailAddress
-  User.findOne({ emailAddress }).then(user => {
+  db.User.findOne({ emailAddress }).then(user => {
     // Check if user exists
     if (!user) {
       return res.status(404).json({ emailAddressNotfound: "Email Address not found" });
@@ -103,7 +103,7 @@ router.post("/login", (req, res) => {
 // @desc Get all users
 // @access Private
 router.get("/users", (req, res) => {
-  User.find({ }).then(users => {
+  db.User.find({ }).then(users => {
     // Check if users exist
     if (!users) {
       return res.status(404).json({ usersNotFound: "No users found." });
@@ -117,7 +117,7 @@ router.get("/users", (req, res) => {
 // @desc Get all users pending approval
 // @access Private
 router.get("/pending", (req, res) => {
-  User.find({ memberType : "guest" }).then(users => {
+  db.User.find({ memberType : "guest" }).then(users => {
     // Check if users exist
     if (!users) {
       return res.status(404).json({ usersNotFound: "No users found." });
@@ -131,7 +131,7 @@ router.get("/pending", (req, res) => {
 // @desc PUT users
 // @access Private
 router.put("/users/approve:id", (req, res) => {
-  User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["member"] } }).then(
+  db.User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["member"] } }).then(
     User.find({ } ).sort( { date : 1 } ).then(users => {
       // Check if users exist
       if (!users) {
@@ -147,7 +147,7 @@ router.put("/users/approve:id", (req, res) => {
 // @desc PUT users
 // @access Private
 router.put("/users/unapprove:id", (req, res) => {
-  User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["guest"] } }, {useFindAndModify : false}).then(
+  db.User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["guest"] } }, {useFindAndModify : false}).then(
     User.find({ }).then(users => {
       // Check if users exist
       if (!users) {
@@ -164,7 +164,7 @@ router.put("/users/unapprove:id", (req, res) => {
 // @desc PUT users
 // @access Private
 router.put("/users/remove:id", (req, res) => {
-  User.remove({_id : req.params.id}, {justOne : true}).then(
+  db.User.remove({_id : req.params.id}, {justOne : true}).then(
     User.find({ }).then(users => {
       // Check if users exist
       if (!users) {
