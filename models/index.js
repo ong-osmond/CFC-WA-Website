@@ -1,7 +1,7 @@
 module.exports = {
-    User: require('./User'),
-    Event: require('./Event'),
-    Member: require('./Member'),
-    Family: require('./Family')
+    User: require('./user'),
+    Event: require('./event'),
+    Member: require('./member'),
+    Family: require('./family')
   };
   
