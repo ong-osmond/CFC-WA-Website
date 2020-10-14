@@ -30,29 +30,6 @@ const UserSchema = new Schema({
     type: Array,
     default: "guest",
   },
-  birthDate: {
-    type: Date
-  },
-  sex: {
-    type: String
-  },
-  contactNo: {
-    type: Number
-  },
-  address : {
-    streetNumber : { type: String},
-    streetName: {type: String},
-    suburb: {type: String},
-    postCode: {type: Number},
-    state: {type: String}
-
-  },
-  events: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Event"
-    }
-  ]
-
+  
 });
 module.exports = User = mongoose.model("User", UserSchema);

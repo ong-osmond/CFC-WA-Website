@@ -77,5 +77,10 @@ export default {
     return axios.put("/api/events/event/remove" + id);
   }
   ,
+  
+  // Get member info
+  getMemberInfo: function (id) {
+    return axios.get("/api/users/user/info" + id);
+  }
 
 };

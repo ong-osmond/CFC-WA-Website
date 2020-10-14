@@ -9,6 +9,9 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 
+// Load all models
+const db = require("../../models");
+
 // @route POST api/users/register
 // @desc Register user
 // @access Public
@@ -170,6 +173,39 @@ router.put("/users/remove:id", (req, res) => {
     }
     )
   )
+}
+);
+
+// @route GET api/users/user/info 
+// @desc Get member details of user
+// @access Private
+router.get("/user/info:id", (req, res) => {
+  console.log(req.params);
+
+
+ObjectId = require('mongodb').ObjectID;
+
+  db.User.aggregate([
+   
+
+    { $match : { _id : ObjectId(req.params.id) } },
+    { 
+        $lookup: { 
+            from: "members", 
+            localField: "_id", 
+            foreignField: "user_id", 
+            as: "member_info" 
+        } 
+    },
+])
+
+ .then(member => {
+    // Check if events exist
+    if (!member) {
+      return res.status(404).json({ memberNotFound: "No member found." });
+    } else res.send(member);
+  }
+  );
 }
 );
 

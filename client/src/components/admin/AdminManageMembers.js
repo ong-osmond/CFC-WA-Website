@@ -30,6 +30,7 @@ class AdminManageMembers extends Component {
 
   approveMemberHandler = (id) => {
     API.approveMember(id).then((res) => {
+      console.log(res);
       this.loadUsers()
     })
       .catch((err) => {

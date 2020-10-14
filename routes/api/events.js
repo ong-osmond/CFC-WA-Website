@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-// Load both Event and User models
+// Load all models
 const db = require("../../models");
 
 // @route POST event/create

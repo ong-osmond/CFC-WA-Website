@@ -31,6 +31,7 @@ class AdminManageEvents extends Component {
 
   approveEventHandler = (id) => {
     API.approveEvent(id).then((res) => {
+      console.log(res);
       this.loadEvents()
     })
       .catch((err) => {
