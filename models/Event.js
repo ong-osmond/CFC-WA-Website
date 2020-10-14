@@ -37,7 +37,7 @@ const EventSchema = new Schema({
     ref: "User"
   }
   ],
-  eventZoomID: {
+  eventImageURL: {
     type: String
   },
   eventType: {

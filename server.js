@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const routes = require("./routes");
 const passport = require("passport");
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -39,6 +42,23 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/cfc-wa"),
   useFindAndModify: false
 }
 ;
+
+// Cloudinary storage
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'some-folder-name',
+    format: async (req, file) => 'png', // supports promises as well
+    public_id: (req, file) => 'computed-filename-using-request',
+  },
+});
+ 
+const parser = multer({ storage: storage });
+ 
+app.post('/upload', parser.single('image'), function (req, res) {
+  res.json(req.file);
+});
+
 
 // Define any API routes before this runs
 app.get("*", function(req, res) {

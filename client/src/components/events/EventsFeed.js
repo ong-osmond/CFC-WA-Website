@@ -10,6 +10,7 @@ import Navbar from "../layout/Navbar"
 import Moment from 'moment';
 import EventForm from "./EventForm";
 import "../../css/style.css";
+import { upload_preset } from "./cloudinary";
 
 Moment.locale('en');
 
@@ -137,6 +138,15 @@ class EventsFeed extends Component {
                                     <p>Current number of participants: {result.eventParticipants.length}</p>
                                     <hr></hr>
                                 </div>
+
+                                <div className="eventfeedphoto">
+                                    <img src={result.eventImageURL} />
+                                </div>
+
+
+                                {/* <div>
+                                    <a><img src={result.eventImageURL} /></a>
+                                </div> */}
 
                             </div>
 

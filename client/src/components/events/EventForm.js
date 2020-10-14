@@ -9,7 +9,7 @@ import API from "../../utils/API";
 import DefaultImage from "./img/2020-Called-To-Holiness.jpg";
 import "../../css/style.css";
 import "react-datetime/css/react-datetime.css";
-import EventsFeed from "./EventsFeed";
+import { cloud_name, upload_preset } from "./cloudinary";
 
 Moment.locale('en');
 
@@ -24,7 +24,8 @@ class EventForm extends Component {
             eventDescription: '',
             eventType: '',
             eventDate: Moment.now(),
-            creator_id: this.props.auth.user.id
+            creator_id: this.props.auth.user.id,
+            eventImageURL: ''
 
         };
     }
@@ -42,29 +43,59 @@ class EventForm extends Component {
         this.setState({ eventDate: date })
     }
 
-    createEventHandler = () => {
+    // Save the event using the Create Event API
+    callCreateEventAPI = () => {
         let request = {
             eventTitle: this.state.eventTitle,
             eventDescription: this.state.eventDescription,
             eventType: this.state.eventType,
             eventDate: this.state.eventDate,
             eventVenue: this.state.eventVenue,
-            creator_id: this.state.creator_id
-        }
+            creator_id: this.state.creator_id,
+            eventImageURL: this.state.eventImageURL
+        };
         API.createEvent(request).then((res) => {
             alert("Thank you for submitting an event. The Administrator will review the event before it is published.");
             this.props.toggleModal();
             this.setState({
                 eventTitle: '',
                 eventDescription: '',
-                eventType: ''
+                eventType: '',
+                eventDate: '',
+                eventVenue: '',
+                creator_id: '',
+                eventImageURL: ''
             });
         })
             .catch((err) => {
                 console.log(err);
             });
+    }
+
+    createEventHandler = () => {
+        // Find the image uploaded
+        const { files } = document.querySelector('input[type="file"]');
+        if ( files.length > 0 ) {
+            const formData = new FormData();
+            formData.append('file', files[0]);
+            formData.append('upload_preset', upload_preset);
+            const options = {
+                method: 'POST',
+                body: formData,
+            };
+            return fetch(`https://api.Cloudinary.com/v1_1/${cloud_name}/image/upload`, options)
+                .then(res => res.json())
+                .then(res => {
+                    this.state.eventImageURL = (res.secure_url);
+                    this.callCreateEventAPI();
+                }) // Set the eventImageURL returned by Cloudinary
+                .catch(err => console.log(err));
+        } else {
+            this.callCreateEventAPI();
+        }
 
     }
+
 
     render() {
         const { user } = this.props.auth;
@@ -103,6 +134,14 @@ class EventForm extends Component {
                         <option>Other</option>
                     </Input>
                 </FormGroup>
+
+                <div className="form-group">
+                    <input type="file" />
+                </div>
+
+                {/* <button type="button" className="btn" onClick={this.handleImageUpload}>Submit</button> */}
+
+
                 {this.props.auth.isAuthenticated &&
                     <Button color="success"
 

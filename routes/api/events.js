@@ -16,7 +16,8 @@ router.post("/event/create", (req, res) => {
         eventDate: req.body.eventDate,
         eventVenue: req.body.eventVenue,
         eventApproved: false,
-        eventType: req.body.eventType
+        eventType: req.body.eventType,
+        eventImageURL: req.body.eventImageURL
     });
     newEvent
         .save()
