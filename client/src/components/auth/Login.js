@@ -43,7 +43,7 @@ class Login extends Component {
       emailAddress: this.state.emailAddress,
       password: this.state.password
     };
-    this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+    this.props.loginUser(userData) // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
   };
   render() {
     const { errors } = this.state;
@@ -71,13 +71,14 @@ class Login extends Component {
                   type="emailAddress"
                   placeholder="Email Address"
                   className={classnames("", {
-                    invalid: errors.emailAddress || errors.emailnotfound
+                    invalid: errors.emailAddress || errors.emailnotfound || errors.emailAddressNotfound
                   })}
                 />
 
-                <span>
+                <span className="red-text">
                   {errors.emailAddress}
                   {errors.emailnotfound}
+                  {errors.emailAddressNotfound}
                 </span>
 
               </div>
@@ -92,12 +93,12 @@ class Login extends Component {
                   type="password"
                   placeholder="Password"
                   className={classnames("", {
-                    invalid: errors.password || errors.passwordincorrect
+                    invalid: errors.password || errors.passwordIncorrect
                   })}
                 />
                 <span className="red-text">
                   {errors.password}
-                  {errors.passwordincorrect}
+                  {errors.passwordIncorrect}
                 </span>
 
               </div>
