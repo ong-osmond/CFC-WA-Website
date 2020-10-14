@@ -132,7 +132,7 @@ router.get("/pending", (req, res) => {
 // @access Private
 router.put("/users/approve:id", (req, res) => {
   db.User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["member"] } }).then(
-    User.find({ } ).sort( { date : 1 } ).then(users => {
+    db.User.find({ } ).sort( { date : 1 } ).then(users => {
       // Check if users exist
       if (!users) {
         return res.status(404).json({ usersNotFound: "No users found." });
@@ -148,7 +148,7 @@ router.put("/users/approve:id", (req, res) => {
 // @access Private
 router.put("/users/unapprove:id", (req, res) => {
   db.User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["guest"] } }, {useFindAndModify : false}).then(
-    User.find({ }).then(users => {
+    db.User.find({ }).then(users => {
       // Check if users exist
       if (!users) {
         return res.status(404).json({ usersNotFound: "No users found." });
@@ -165,7 +165,7 @@ router.put("/users/unapprove:id", (req, res) => {
 // @access Private
 router.put("/users/remove:id", (req, res) => {
   db.User.remove({_id : req.params.id}, {justOne : true}).then(
-    User.find({ }).then(users => {
+    db.User.find({ }).then(users => {
       // Check if users exist
       if (!users) {
         return res.status(404).json({ usersNotFound: "No users found." });
