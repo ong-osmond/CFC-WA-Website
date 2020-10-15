@@ -3,7 +3,11 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Description: 
-Modernisation of the Couples for Christ Website using a full-stack MERN application.
+Welcome to my Final Project for the UWA Full Stack Bootcamp course!
+This is a modernisation of the website for the community I belong to, Couples for Christ Western Australia, using a full-stack MERN application.
+The site can be previewed here: https://couples-for-christ-wa.herokuapp.com/ .
+An admin account has been created that has access to all features. Please email me to get the login credentials.
+
 
 ## Table of Contents 
 * [Installation](#Installation) 
