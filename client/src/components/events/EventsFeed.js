@@ -9,7 +9,7 @@ import DefaultImage from "./img/2020-Called-To-Holiness.jpg";
 import Navbar from "../layout/Navbar"
 import Moment from 'moment';
 import EventForm from "./EventForm";
-import "../../css/style.css";
+//import "../../css/style.css";
 import { upload_preset } from "./cloudinary";
 
 Moment.locale('en');

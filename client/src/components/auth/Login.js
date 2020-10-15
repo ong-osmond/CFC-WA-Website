@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
 import Navbar from "../layout/Navbar"
-import "../../css/style.css"
+//import "../../css/style.css"
 
 class Login extends Component {
   constructor() {

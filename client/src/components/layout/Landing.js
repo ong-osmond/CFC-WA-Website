@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
-import "../../css/style.css";
+//import "../../css/style.css";
 
 class Landing extends Component {
   render() {

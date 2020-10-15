@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import API from "../../utils/API";
 import DefaultImage from "./img/2020-Called-To-Holiness.jpg";
-import "../../css/style.css";
+//import "../../css/style.css";
 import "react-datetime/css/react-datetime.css";
 import { cloud_name, upload_preset } from "./cloudinary";
 
