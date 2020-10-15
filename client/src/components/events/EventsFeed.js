@@ -10,7 +10,6 @@ import Navbar from "../layout/Navbar"
 import Moment from 'moment';
 import EventForm from "./EventForm";
 //import "../../css/style.css";
-import { upload_preset } from "./cloudinary";
 
 Moment.locale('en');
 

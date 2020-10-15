@@ -9,7 +9,6 @@ import API from "../../utils/API";
 import DefaultImage from "./img/2020-Called-To-Holiness.jpg";
 //import "../../css/style.css";
 import "react-datetime/css/react-datetime.css";
-import { cloud_name, upload_preset } from "./cloudinary";
 
 Moment.locale('en');
 
@@ -78,12 +77,12 @@ class EventForm extends Component {
         if ( files.length > 0 ) {
             const formData = new FormData();
             formData.append('file', files[0]);
-            formData.append('upload_preset', upload_preset);
+            formData.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET);
             const options = {
                 method: 'POST',
                 body: formData,
             };
-            return fetch(`https://api.Cloudinary.com/v1_1/${cloud_name}/image/upload`, options)
+            return fetch(`https://api.Cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, options)
                 .then(res => res.json())
                 .then(res => {
                     this.state.eventImageURL = (res.secure_url);
