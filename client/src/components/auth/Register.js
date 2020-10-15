@@ -62,7 +62,7 @@ class Register extends Component {
             <h4>Register</h4>
 
             <form noValidate onSubmit={this.onSubmit}>
-              <div class="registerfield">
+              <div className="registerfield">
                 <input
                   onChange={this.onChange}
                   value={this.state.emailAddress}
@@ -77,7 +77,7 @@ class Register extends Component {
                 <span>{errors.emailAddress}</span>
               </div>
 
-              <div class="registerfield">
+              <div className="registerfield">
                 <input
                   onChange={this.onChange}
                   value={this.state.firstName}
@@ -88,7 +88,7 @@ class Register extends Component {
                 />
               </div>
 
-              <div class="registerfield">
+              <div className="registerfield">
                 <input
                   onChange={this.onChange}
                   value={this.state.lastName}
@@ -99,7 +99,7 @@ class Register extends Component {
                 />
               </div>
 
-              <div class="registerfield">
+              <div className="registerfield">
                 <input
                   onChange={this.onChange}
                   value={this.state.password}
@@ -114,7 +114,7 @@ class Register extends Component {
                 <span>{errors.password}</span>
               </div>
 
-              <div class="registerfield">
+              <div className="registerfield">
                 <input
                   onChange={this.onChange}
                   value={this.state.password2}
@@ -140,16 +140,16 @@ class Register extends Component {
                   marginTop: "1rem"
                 }}
                 type="submit"
-                class="customBtn"
+                className="customBtn"
               >
                 Sign up
                 </button>
-
+              <p className="grey-text text-darken-1">
+                Already have an account? <Link to="/login">Log in</Link>
+              </p>
             </form>
 
-            <p className="grey-text text-darken-1">
-              Already have an account? <Link to="/login">Log in</Link>
-            </p>
+
 
           </div>
 

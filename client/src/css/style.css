@@ -1,7 +1,5 @@
 @import "//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css";
 
-
-
 /* body {
     font: 10px/1.5 Arial, Helvetica, sans-serif;
     padding-top: 20px;
@@ -107,6 +105,8 @@ header a:hover{
     min-height: 400px;
     text-align: left;
     padding-left: 40px;
+    margin-top: 50px;
+    padding-right: 40px;
 }
 
 #display h1{
@@ -210,7 +210,7 @@ header a:hover{
 .register-box{
     width: 280px;
     position: absolute;
-    top: 55%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #ffffff;
@@ -360,7 +360,7 @@ article#main-col{
     z-index: 1;
     background: #415a84;
     position: relative;
-    top: 0px;
+    margin-top: 25px;
     width: 250px;
     height: calc(100% - 9%);
     transition: 0.3s;
@@ -453,8 +453,24 @@ article#main-col{
     color: #000000;
     }
 
+table {
+        border-collapse: collapse;
+      }
+      
+table, th, td {
+        border: 1px solid black;
+      }
 
+.dashboardSections {
+    display:flex; flex-direction:row;
+}
 
+.addEventBtn {
+    position: absolute;
+    right: 2.5%;
+    padding: 10px;
+}
+      
 /*Media queries */
 @media(max-width: 768px){
     header #branding,

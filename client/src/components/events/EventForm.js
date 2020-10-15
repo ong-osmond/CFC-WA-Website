@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import DatetimePicker from 'react-datetime';
 import Moment from 'moment';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import API from "../../utils/API";
-import DefaultImage from "./img/2020-Called-To-Holiness.jpg";
-//import "../../css/style.css";
 import "react-datetime/css/react-datetime.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 Moment.locale('en');
 
@@ -22,7 +22,7 @@ class EventForm extends Component {
             eventTitle: '',
             eventDescription: '',
             eventType: '',
-            eventDate: Moment.now(),
+            eventDate: '',
             creator_id: this.props.auth.user.id,
             eventImageURL: ''
 
@@ -54,7 +54,15 @@ class EventForm extends Component {
             eventImageURL: this.state.eventImageURL
         };
         API.createEvent(request).then((res) => {
-            alert("Thank you for submitting an event. The Administrator will review the event before it is published.");
+            toast.success('Thank you for submitting an event. The Administrator will review the event before it is published.', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             this.props.toggleModal();
             this.setState({
                 eventTitle: '',
@@ -72,42 +80,68 @@ class EventForm extends Component {
     }
 
     createEventHandler = () => {
-        // Find the image uploaded
-        const { files } = document.querySelector('input[type="file"]');
-        if ( files.length > 0 ) {
-            const formData = new FormData();
-            formData.append('file', files[0]);
-            formData.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET);
-            const options = {
-                method: 'POST',
-                body: formData,
-            };
-            return fetch(`https://api.Cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, options)
-                .then(res => res.json())
-                .then(res => {
-                    this.state.eventImageURL = (res.secure_url);
-                    this.callCreateEventAPI();
-                }) // Set the eventImageURL returned by Cloudinary
-                .catch(err => console.log(err));
-        } else {
-            this.callCreateEventAPI();
+        if (this.state.eventTitle == ''
+            || this.state.eventDescription == ''
+            || this.state.eventType == ''
+            || this.state.eventVenue == '') {
+            toast.error('You have not completed all required fields.', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
-
+        else {
+            // Find the image uploaded
+            const { files } = document.querySelector('input[type="file"]');
+            if (files.length > 0) {
+                const formData = new FormData();
+                formData.append('file', files[0]);
+                formData.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET);
+                const options = {
+                    method: 'POST',
+                    body: formData,
+                };
+                return fetch(`https://api.Cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, options)
+                    .then(res => res.json())
+                    .then(res => {
+                        this.state.eventImageURL = (res.secure_url);
+                        this.callCreateEventAPI();
+                    }) // Set the eventImageURL returned by Cloudinary
+                    .catch(err => console.log(err));
+            } else {
+                this.callCreateEventAPI();
+            }
+        }
     }
-
 
     render() {
         const { user } = this.props.auth;
         return (
-
             <Form>
+
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
+
                 <FormGroup>
                     <Label for="eventTitle">Event Title</Label>
-                    <Input type="textarea" id="eventTitle" onChange={this.handleInputChange} />
+                    <Input type="textarea" id="eventTitle" onChange={this.handleInputChange} required />
                 </FormGroup>
                 <FormGroup>
                     <Label for="eventDescription">Description</Label>
-                    <Input type="textarea" id="eventDescription" onChange={this.handleInputChange} />
+                    <Input type="textarea" id="eventDescription" onChange={this.handleInputChange} required />
                 </FormGroup>
                 <FormGroup>
                     <Label for="eventDate">Date</Label>
@@ -115,15 +149,16 @@ class EventForm extends Component {
                     <DatetimePicker
                         id="eventDate"
                         onChange={this.handleDateTimeChange}
+                        required
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="eventVenue">Venue or Online (Zoom) Link</Label>
-                    <Input type="textarea" id="eventVenue" onChange={this.handleInputChange} />
+                    <Label for="eventVenue">Venue or Online Meeting Link (e.g. Zoom URL)</Label>
+                    <Input type="textarea" id="eventVenue" onChange={this.handleInputChange} required />
                 </FormGroup>
                 <FormGroup>
                     <Label for="eventType">Select an Event Type</Label>
-                    <Input type="select" id="eventType" onChange={this.handleInputChange}>
+                    <Input type="select" id="eventType" onChange={this.handleInputChange} required>
                         <option default></option>
                         <option>Chapter Assembly</option>
                         <option>Christian Life Program</option>
@@ -135,11 +170,9 @@ class EventForm extends Component {
                 </FormGroup>
 
                 <div className="form-group">
-                    <input type="file" />
+                    <Label>Upload a photo</Label>
+                    <p><input type="file" /></p>
                 </div>
-
-                {/* <button type="button" className="btn" onClick={this.handleImageUpload}>Submit</button> */}
-
 
                 {this.props.auth.isAuthenticated &&
                     <Button color="success"

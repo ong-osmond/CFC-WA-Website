@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import NavbarImage from "../../images/CFC2020.jpg";
 //import "../../css/style.css";
 
 
@@ -18,17 +17,17 @@ class Navbar extends Component {
 
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-warning fixed-top">
-        <a className="nav-bar brand" id="branding">
+        <a className="nav-bar brand" id="branding" href="/">
           <h1 className="d-none d-sm-block"><span className="highlight"> Couples for Christ </span > WA</h1>
           <h1 className="d-block d-sm-none"><span className="highlight"> CFC </span > WA
             </h1>
-          <span className="custom-toggler">
-            <button className="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-          </span>
-        </a>
 
+        </a>
+        <span className="custom-toggler">
+          <button className="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+        </span>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
             <li>
@@ -50,11 +49,11 @@ class Navbar extends Component {
                 <Link to="/dashboard">Dashboard</Link>
               </li>
             }
-            {this.props.auth.isAuthenticated &&
+            {/* {this.props.auth.isAuthenticated &&
               <li>
                 <Link to="/profile">Profile</Link>
               </li>
-            }
+            } */}
             {this.props.auth.isAuthenticated ?
               <li>
                 <Link

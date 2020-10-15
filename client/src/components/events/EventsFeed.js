@@ -1,15 +1,16 @@
 import React, { Component, useState } from "react";
-import { Media, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import API from "../../utils/API";
-import DefaultImage from "./img/2020-Called-To-Holiness.jpg";
 import Navbar from "../layout/Navbar"
 import Moment from 'moment';
 import EventForm from "./EventForm";
 //import "../../css/style.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 Moment.locale('en');
 
@@ -52,7 +53,15 @@ class EventsFeed extends Component {
         }
         API.joinEvent(request)
             .then(() => {
-                alert("Thank you for joining this event!");
+                toast.success('Thank you for joining this event.', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
                 this.loadEvents()
             })
             .catch((err) => {
@@ -67,7 +76,15 @@ class EventsFeed extends Component {
         }
         API.unjoinEvent(request)
             .then(() => {
-                alert("You have backed out of this event.");
+                toast.warn('You have backed out of this event.', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
                 this.loadEvents()
             })
             .catch((err) => {
@@ -88,17 +105,25 @@ class EventsFeed extends Component {
             <body>
                 <header>
                     <Navbar />
-                    {/* <div class="header-overlay">
-                        This is the overlay
-                      </div> */}
                 </header>
 
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
 
                 <section id="display">
                     <div className="container">
                         {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
                             this.props.auth.user.memberType == 'admin') &&
-                            <Button color="success" onClick={() => { this.toggle() }}>Add an Event</Button>
+                            <Button color="success" onClick={() => { this.toggle() }} className="addEventBtn">Add an Event</Button>
                         }
                         <hr></hr>
 
@@ -130,7 +155,7 @@ class EventsFeed extends Component {
                                                 this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
                                                     this.props.auth.user.memberType == 'admin') ?
                                                     <p><button type="submit" className="buttonGreen" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
-                                                    <p>To join this event, please <Link to="/login">log In</Link> with your verified and approved CFC WA Account.</p>
+                                                    <p>To join this event, please <Link to="/login">log in</Link> with your approved CFC WA Account.</p>
                                             :
                                             <p></p>
                                     }
@@ -138,17 +163,12 @@ class EventsFeed extends Component {
                                     <hr></hr>
                                 </div>
 
-                                <div className="eventfeedphoto">
-                                    <img src={result.eventImageURL} />
-                                </div>
-
-
-                                {/* <div>
-                                    <a><img src={result.eventImageURL} /></a>
-                                </div> */}
-
+                                {result.eventImageURL &&
+                                    <div className="eventfeedphoto">
+                                        <img src={result.eventImageURL} />
+                                    </div>
+                                }
                             </div>
-
                         ))}
 
                     </div></section>

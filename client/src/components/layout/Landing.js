@@ -12,17 +12,17 @@ class Landing extends Component {
         </header>
 
         <section id="showcase">
-          <div class="container">
+          <div className="container">
             <h5>Families in the Holy Spirit, renewing the face of the earth</h5>
           </div>
         </section>
 
         <section id="newsletter">
-          <div class="container">
+          <div className="container">
             <h5>Subscribe to our newsletter</h5>
             <form>
               <input type="email" placeholder="Enter email"/>
-              <button type="submit" class="button_1">Subscribe</button>
+              <button type="submit" className="button_1">Subscribe</button>
             </form>
           </div>
         </section>

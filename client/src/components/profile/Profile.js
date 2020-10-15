@@ -7,8 +7,6 @@ import { logoutUser } from "../../actions/authActions";
 import Navbar from "../layout/Navbar"
 import Moment from 'moment';
 import API from "../../utils/API";
-import DefaultImage from "../../images/oong.jpg";
-import Sidebar from "../dashboard/Sidebar";
 import DatePicker from 'react-datetime-picker';
 
 Moment.locale('en');
@@ -72,7 +70,7 @@ createEventHandler = () => {
         creator_id: this.state.creator_id
     }
     API.createEvent(request).then((res) => {
-        alert("Thank you for submitting an event. The Administrator will review the event before it is published.");
+        // alert("Thank you for submitting an event. The Administrator will review the event before it is published.");
         this.props.toggleModal();
         this.setState({
             eventTitle: '',
@@ -92,7 +90,7 @@ render() {
       <body>
       <header>
           <Navbar />
-          {/* <div class="header-overlay">
+          {/* <div className="header-overlay">
               This is the overlay
             </div> */}
       </header>

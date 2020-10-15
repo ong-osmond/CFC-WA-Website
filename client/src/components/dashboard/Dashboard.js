@@ -5,10 +5,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Navbar from "../layout/Navbar"
 import Moment from 'moment';
-import DefaultImage from "../../images/oong.jpg";
 import Sidebar from "../dashboard/Sidebar";
-
-
 
 class Dashboard extends Component {
 

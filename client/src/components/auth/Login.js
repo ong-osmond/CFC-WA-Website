@@ -61,8 +61,8 @@ class Login extends Component {
 
 
             <form noValidate onSubmit={this.onSubmit}>
-              <div class="textbox">
-                <i class="fa fa-user" aria-hidden="true"></i>
+              <div className="textbox">
+                <i className="fa fa-user" aria-hidden="true"></i>
                 <input
                   onChange={this.onChange}
                   value={this.state.emailAddress}
@@ -83,8 +83,8 @@ class Login extends Component {
 
               </div>
 
-              <div class="textbox">
-                <i class="fa fa-lock" aria-hidden="true"></i>
+              <div className="textbox">
+                <i className="fa fa-lock" aria-hidden="true"></i>
                 <input
                   onChange={this.onChange}
                   value={this.state.password}
@@ -115,7 +115,7 @@ class Login extends Component {
                   marginTop: "1rem"
                 }}
                 type="submit"
-                class="customBtn">
+                className="customBtn">
                 <b>Login</b>
               </button>
 

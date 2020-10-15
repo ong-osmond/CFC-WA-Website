@@ -8,21 +8,21 @@ const db = require("../../models");
 // @desc Create event
 // @access Private
 router.post("/event/create", (req, res) => {
-    // TODO: Validation
-    const newEvent = new db.Event({
-        creator_id: [req.body.creator_id],
-        eventTitle: req.body.eventTitle,
-        eventDescription: req.body.eventDescription,
-        eventDate: req.body.eventDate,
-        eventVenue: req.body.eventVenue,
-        eventApproved: false,
-        eventType: req.body.eventType,
-        eventImageURL: req.body.eventImageURL
-    });
-    newEvent
-        .save()
-        .then(event => res.json(event))
-        .catch(err => console.log(err));
+  // TODO: Validation
+  const newEvent = new db.Event({
+    creator_id: [req.body.creator_id],
+    eventTitle: req.body.eventTitle,
+    eventDescription: req.body.eventDescription,
+    eventDate: req.body.eventDate,
+    eventVenue: req.body.eventVenue,
+    eventApproved: false,
+    eventType: req.body.eventType,
+    eventImageURL: req.body.eventImageURL
+  });
+  newEvent
+    .save()
+    .then(event => res.json(event))
+    .catch(err => console.log(err));
 
 }
 )
@@ -35,15 +35,15 @@ router.get("/events/manage", (req, res) => {
     [
       {
         $lookup:
-          {
-            from: "users",
-            localField: "creator_id",
-            foreignField: "_id",
-            as: "creator_details"
-          }
-     }
-   ]
-  ).sort( { eventDate : 1 } ).then(events => {
+        {
+          from: "users",
+          localField: "creator_id",
+          foreignField: "_id",
+          as: "creator_details"
+        }
+      }
+    ]
+  ).sort({ eventDate: 1 }).then(events => {
     // Check if events exist
     if (!events) {
       return res.status(404).json({ eventsNotFound: "No events found." });
@@ -58,23 +58,23 @@ router.get("/events/manage", (req, res) => {
 // @desc Get events that have been approved
 // @access Public
 router.get("/events/upcoming", (req, res) => {
-    db.Event.find({ eventDate: { $gte: new Date() } , eventApproved : true }).sort( { eventDate : 1 } ).then(events => {
-      // Check if events exist
-      if (!events) {
-        return res.status(404).json({ eventsNotFound: "No events found." });
-      } else res.send(events);
-    }
-    );
+  db.Event.find({ eventDate: { $gte: new Date() }, eventApproved: true }).sort({ eventDate: 1 }).then(events => {
+    // Check if events exist
+    if (!events) {
+      return res.status(404).json({ eventsNotFound: "No events found." });
+    } else res.send(events);
   }
   );
+}
+);
 
 
 // @route PUT api/event/approve
 // @desc PUT Approve an Event
 // @access Private
 router.put("/event/approve:id", (req, res) => {
-  db.Event.findOneAndUpdate({_id : req.params.id}, { $set: { eventApproved : true } }).then(
-    db.Event.find({ } ).sort( { date : 1 } ).then(events => {
+  db.Event.findOneAndUpdate({ _id: req.params.id }, { $set: { eventApproved: true } }).then(
+    db.Event.find({}).sort({ date: 1 }).then(events => {
       // Check if events exist
       if (!events) {
         return res.status(404).json({ eventsNotFound: "No events found." });
@@ -89,8 +89,8 @@ router.put("/event/approve:id", (req, res) => {
 // @desc PUT Unapprove an Event
 // @access Private
 router.put("/event/unapprove:id", (req, res) => {
-  db.Event.findOneAndUpdate({_id : req.params.id}, { $set: { eventApproved : false } }).then(
-    db.Event.find({ } ).sort( { date : 1 } ).then(events => {
+  db.Event.findOneAndUpdate({ _id: req.params.id }, { $set: { eventApproved: false } }).then(
+    db.Event.find({}).sort({ date: 1 }).then(events => {
       // Check if events exist
       if (!events) {
         return res.status(404).json({ eventsNotFound: "No events found." });
@@ -105,21 +105,21 @@ router.put("/event/unapprove:id", (req, res) => {
 // @desc PUT events
 // @access Private
 router.put("/event/join:id", (req, res) => {
-    db.Event.findOneAndUpdate({_id : req.params.id}, { $push: { eventParticipants : req.body.participant_id } }).then(events => {
-      // Check if events exist
-      if (!events) {
-        return res.status(404).json({ eventsNotFound: "No such event found." });
-      } else res.send(events);
-    }
-    );
+  db.Event.findOneAndUpdate({ _id: req.params.id }, { $push: { eventParticipants: req.body.participant_id } }).then(events => {
+    // Check if events exist
+    if (!events) {
+      return res.status(404).json({ eventsNotFound: "No such event found." });
+    } else res.send(events);
   }
   );
+}
+);
 
-  // @route PUT api/events/unjoin 
+// @route PUT api/events/unjoin 
 // @desc PUT events
 // @access Private
 router.put("/event/unjoin:id", (req, res) => {
-  db.Event.findOneAndUpdate({_id : req.params.id}, { $pull: { eventParticipants : req.body.participant_id } }).then(events => {
+  db.Event.findOneAndUpdate({ _id: req.params.id }, { $pull: { eventParticipants: req.body.participant_id } }).then(events => {
     // Check if events exist
     if (!events) {
       return res.status(404).json({ eventsNotFound: "No such event found." });
@@ -133,8 +133,8 @@ router.put("/event/unjoin:id", (req, res) => {
 // @desc PUT Remove event
 // @access Private
 router.put("/event/remove:id", (req, res) => {
-  db,Event.remove({_id : req.params.id}, {justOne : true}).then(
-    db.Event.find({ }).then(events => {
+  db, Event.remove({ _id: req.params.id }, { justOne: true }).then(
+    db.Event.find({}).then(events => {
       // Check if events exist
       if (!events) {
         return res.status(404).json({ eventsNotFound: "No events found." });
@@ -154,16 +154,20 @@ router.get("/eventsFull", (req, res) => {
     [
       {
         $lookup:
-          {
-            from: "users",
-            localField: "creator_id",
-            foreignField: "_id",
-            as: "creator_details"
-          }
-     }
-   ]
+        {
+          from: "users",
+          localField: "creator_id",
+          foreignField: "_id",
+          as: "creator_details"
+        }
+        ,
+        $project: { password: 0 }
+        ,
+        $sort: {eventDate : 1 }
+      }
+    ]
   )
-  .then(events => {
+    .then(events => {
       res.json(events);
     })
     .catch(err => {

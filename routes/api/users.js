@@ -103,7 +103,7 @@ router.post("/login", (req, res) => {
 // @desc Get all users
 // @access Private
 router.get("/users", (req, res) => {
-  db.User.find({ }).then(users => {
+  db.User.find({}, { password: 0 }).then(users => {
     // Check if users exist
     if (!users) {
       return res.status(404).json({ usersNotFound: "No users found." });
@@ -117,7 +117,7 @@ router.get("/users", (req, res) => {
 // @desc Get all users pending approval
 // @access Private
 router.get("/pending", (req, res) => {
-  db.User.find({ memberType : "guest" }).then(users => {
+  db.User.find({ memberType: "guest" }, { password: 0 }).then(users => {
     // Check if users exist
     if (!users) {
       return res.status(404).json({ usersNotFound: "No users found." });
@@ -131,8 +131,8 @@ router.get("/pending", (req, res) => {
 // @desc PUT users
 // @access Private
 router.put("/users/approve:id", (req, res) => {
-  db.User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["member"] } }).then(
-    db.User.find({ } ).sort( { date : 1 } ).then(users => {
+  db.User.findOneAndUpdate({ _id: req.params.id }, { $set: { memberType: ["member"] } }).then(
+    db.User.find({}, { password: 0 }).sort({ date: 1 }).then(users => {
       // Check if users exist
       if (!users) {
         return res.status(404).json({ usersNotFound: "No users found." });
@@ -147,8 +147,8 @@ router.put("/users/approve:id", (req, res) => {
 // @desc PUT users
 // @access Private
 router.put("/users/unapprove:id", (req, res) => {
-  db.User.findOneAndUpdate({_id : req.params.id}, { $set: { memberType : ["guest"] } }, {useFindAndModify : false}).then(
-    db.User.find({ }).then(users => {
+  db.User.findOneAndUpdate({ _id: req.params.id }, { $set: { memberType: ["guest"] } }, { useFindAndModify: false }).then(
+    db.User.find({}, { password: 0 }).then(users => {
       // Check if users exist
       if (!users) {
         return res.status(404).json({ usersNotFound: "No users found." });
@@ -164,8 +164,8 @@ router.put("/users/unapprove:id", (req, res) => {
 // @desc PUT users
 // @access Private
 router.put("/users/remove:id", (req, res) => {
-  db.User.remove({_id : req.params.id}, {justOne : true}).then(
-    db.User.find({ }).then(users => {
+  db.User.remove({ _id: req.params.id }, { justOne: true }).then(
+    db.User.find({}, { password: 0 }).then(users => {
       // Check if users exist
       if (!users) {
         return res.status(404).json({ usersNotFound: "No users found." });
@@ -183,29 +183,31 @@ router.get("/user/info:id", (req, res) => {
   console.log(req.params);
 
 
-ObjectId = require('mongodb').ObjectID;
+  ObjectId = require('mongodb').ObjectID;
 
   db.User.aggregate([
-   
 
-    { $match : { _id : ObjectId(req.params.id) } },
-    { 
-        $lookup: { 
-            from: "members", 
-            localField: "_id", 
-            foreignField: "user_id", 
-            as: "member_info" 
-        } 
+
+    { $match: { _id: ObjectId(req.params.id) } },
+    {
+      $lookup: {
+        from: "members",
+        localField: "_id",
+        foreignField: "user_id",
+        as: "member_info"
+      }
+      ,
+      $project: { password: 0 }
     },
-])
+  ])
 
- .then(member => {
-    // Check if events exist
-    if (!member) {
-      return res.status(404).json({ memberNotFound: "No member found." });
-    } else res.send(member);
-  }
-  );
+    .then(member => {
+      // Check if events exist
+      if (!member) {
+        return res.status(404).json({ memberNotFound: "No member found." });
+      } else res.send(member);
+    }
+    );
 }
 );
 

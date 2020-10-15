@@ -2,12 +2,14 @@ import React, { Component, useState } from "react";
 import { Button } from 'reactstrap';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Navbar from "../layout/Navbar"
 import API from "../../utils/API";
 import Moment from 'moment';
+import Sidebar from "../dashboard/Sidebar";
 
 
 class AdminManageEvents extends Component {
@@ -74,56 +76,66 @@ class AdminManageEvents extends Component {
             <Navbar />
           </header>
 
-          <section id="display">
-            <div>
-              <h1>Manage Events</h1>
-              <br></br>
+          <div className='dashboardSections'>
 
-              <Table hover>
-                <Thead>
-                  <Tr>
-                    <Th>Event Creation Date</Th>
-                    <Th>Created by</Th>
-                    <Th>Event Title</Th>
-                    <Th>Date</Th>
-                    <Th>Description</Th>
-                    <Th>Venue</Th>
-                    <Th>Participants</Th>
-                    <Th>Approve / Unapprove</Th>
-                    <Th>Remove Event</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
+            <Sidebar />
 
-                  {this.state.events.map(result => (
-                    <Tr key={result._id}>
-                      <Td>{Moment(result.creationDate).format('ddd DD MMM yyyy')}</Td>
-                      <Td>{result.creator_details[0].firstName} {result.creator_details[0].lastName}</Td>
-                      <Td>{result.eventTitle}</Td>
-                      <Td>{Moment(result.eventDate).format('ddd DD MMM yyyy hh:mm A')}</Td>
-                      <Td>{result.eventDescription}</Td>
-                      <Td>{result.eventVenue}</Td>
-                      <Td>{result.eventParticipants.length}</Td>
-                      <Td>
-                        {user.memberType == 'admin' && !result.eventApproved &&
-                          <Button color="success" onClick={() => this.approveEventHandler(result._id)}>Approve</Button>
-                        }
-                        {user.memberType == 'admin' && result.eventApproved &&
-                          <Button color="danger" onClick={() => this.unapproveEventHandler(result._id)}>Un-approve</Button>
-                        }
+            <section id="display">
+              <div>
+                <h1>Manage Events</h1>
+                <br></br>
 
-                      </Td>
-                      {
-                        result.memberType != 'admin' &&
-                      <Td><Button color="danger" onClick={() => this.removeEventHandler(result._id)}>Remove</Button> </Td>
-                      }
+                <Table hover>
+                  <Thead>
+                    <Tr>
+                      <Th>Event Creation Date</Th>
+                      <Th>Created by</Th>
+                      <Th>Event Title</Th>
+                      <Th>Date</Th>
+                      <Th>Description (and Image URL) </Th>
+                      <Th>Venue</Th>
+                      <Th>Participants</Th>
+                      <Th>Action</Th>
+                      <Th>Remove</Th>
                     </Tr>
-                  ))}
+                  </Thead>
+                  <Tbody>
 
-                </Tbody>
+                    {this.state.events.map(result => (
+                      <Tr key={result._id}>
+                        <Td>{Moment(result.creationDate).format('DD MMM yyyy hh:mm A')}</Td>
+                        <Td>{result.creator_details[0].firstName} {result.creator_details[0].lastName}</Td>
+                        <Td>{result.eventTitle}</Td>
+                        <Td>{Moment(result.eventDate).format('ddd DD MMM yyyy hh:mm A')}</Td>
+                        <Td>{result.eventDescription} 
+                        { result.eventImageURL &&
+                        <p><a href={result.eventImageURL} target="_blank">View Event Image</a></p>
+                        }
+                        </Td>
+                        <Td>{result.eventVenue}</Td>
+                        <Td>{result.eventParticipants.length}</Td>
+                        <Td>
+                          {user.memberType == 'admin' && !result.eventApproved &&
+                            <Button color="success" onClick={() => this.approveEventHandler(result._id)}>Approve</Button>
+                          }
+                          {user.memberType == 'admin' && result.eventApproved &&
+                            <Button color="danger" onClick={() => this.unapproveEventHandler(result._id)}>Un-approve</Button>
+                          }
 
-              </Table>
-            </div></section>
+                        </Td>
+                        {
+                          result.memberType != 'admin' &&
+                          <Td><Button color="danger" onClick={() => this.removeEventHandler(result._id)}>X</Button> </Td>
+                        }
+                      </Tr>
+                    ))}
+
+                  </Tbody>
+
+                </Table>
+              </div></section>
+
+          </div>
         </body>
 
         :

@@ -1,11 +1,14 @@
 import React, { Component, useState } from "react";
-import { Table, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Navbar from "../layout/Navbar"
 import API from "../../utils/API";
 import Moment from 'moment';
+import Sidebar from "../dashboard/Sidebar";
 
 
 class AdminManageMembers extends Component {
@@ -73,33 +76,37 @@ class AdminManageMembers extends Component {
             <Navbar />
           </header>
 
+          <div className='dashboardSections'>
+
+          <Sidebar />
+
           <section id="display">
             <div>
               <h1>Manage Members</h1>
               <br></br>
 
               <Table hover>
-                <thead>
-                  <tr>
-                    <th>Date of Signup</th>
-                    <th>Email Address</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>User Role</th>
-                    <th>Approve / Unapprove</th>
-                    <th>Remove User</th>
-                  </tr>
-                </thead>
-                <tbody>
+                <Thead>
+                  <Tr>
+                    <Th>Date of Signup</Th>
+                    <Th>Email Address</Th>
+                    <Th>First Name</Th>
+                    <Th>Last Name</Th>
+                    <Th>User Role</Th>
+                    <Th>Action</Th>
+                    <Th>Remove</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
 
                   {this.state.users.map(result => (
-                    <tr key={result._id}>
-                      <td>{Moment(result.date).format('ddd DD MMM yyyy')}</td>
-                      <td>{result.emailAddress}</td>
-                      <td>{result.firstName}</td>
-                      <td>{result.lastName}</td>
-                      <td>{result.memberType}</td>
-                      <td>
+                    <Tr key={result._id}>
+                      <Td>{Moment(result.date).format('DD MMM yyyy hh:mm A')}</Td>
+                      <Td>{result.emailAddress}</Td>
+                      <Td>{result.firstName}</Td>
+                      <Td>{result.lastName}</Td>
+                      <Td>{result.memberType}</Td>
+                      <Td>
                         {result.memberType == 'admin' &&
                           <h1></h1>
                         }
@@ -110,18 +117,20 @@ class AdminManageMembers extends Component {
                           <Button color="danger" onClick={() => this.unapproveMemberHandler(result._id)}>Un-approve</Button>
                         }
 
-                      </td>
+                      </Td>
                       {
                         result.memberType != 'admin' &&
-                      <td><Button color="danger" onClick={() => this.removeMemberHandler(result._id)}>Remove</Button> </td>
+                        <Td><Button color="danger" onClick={() => this.removeMemberHandler(result._id)}>X</Button> </Td>
                       }
-                    </tr>
+                    </Tr>
                   ))}
 
-                </tbody>
+                </Tbody>
 
               </Table>
             </div></section>
+            
+            </div>
         </body>
 
         :

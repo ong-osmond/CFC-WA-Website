@@ -12,7 +12,7 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import EventsFeed from "./components/events/EventsFeed";
 import EventForm from "./components/events/EventForm";
-import Profile from "./components/profile/Profile";
+//import Profile from "./components/profile/Profile";
 import AdminManageMembers from "./components/admin/AdminManageMembers";
 import AdminManageEvents from "./components/admin/AdminManageEvents";
 
@@ -50,7 +50,7 @@ class App extends Component {
 
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute exact path="/profile" component={Profile} />
+              {/* <PrivateRoute exact path="/profile" component={Profile} /> */}
               <PrivateRoute exact path="/admin/members/manage" component={AdminManageMembers} />
               <PrivateRoute exact path="/admin/events/manage" component={AdminManageEvents} />
               <PrivateRoute exact path="/events/create" component={EventForm} />
