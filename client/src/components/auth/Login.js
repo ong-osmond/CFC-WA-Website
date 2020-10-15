@@ -115,7 +115,7 @@ class Login extends Component {
                   marginTop: "1rem"
                 }}
                 type="submit"
-                class="btn">
+                class="customBtn">
                 <b>Login</b>
               </button>
 

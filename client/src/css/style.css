@@ -2,11 +2,11 @@
 
 
 
-body {
+/* body {
     font: 10px/1.5 Arial, Helvetica, sans-serif;
     padding-top: 20px;
     background-color:#415a84;
-}
+} */
 
 /*Global*/
 .container {
@@ -247,7 +247,7 @@ header a:hover{
     color: #ff0000;
 }
 
-.btn{
+.customBtn{
     width: 100%;
     background: none;
     border: 2px solid #e8ca1d;

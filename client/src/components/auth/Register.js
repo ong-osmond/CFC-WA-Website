@@ -140,7 +140,7 @@ class Register extends Component {
                   marginTop: "1rem"
                 }}
                 type="submit"
-                class="btn"
+                class="customBtn"
               >
                 Sign up
                 </button>
