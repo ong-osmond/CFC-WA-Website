@@ -78,59 +78,60 @@ class AdminManageMembers extends Component {
 
           <div className='dashboardSections'>
 
-          <Sidebar />
+            <section className="d-none d-sm-block">
+              <Sidebar />
+            </section>
 
-          <section id="display">
-            <div>
-              <h1>Manage Members</h1>
-              <br></br>
+            <section id="adminDisplay">
+              <div>
+                <h1>Manage Members</h1>
+                <br></br>
 
-              <Table hover>
-                <Thead>
-                  <Tr>
-                    <Th>Date of Signup</Th>
-                    <Th>Email Address</Th>
-                    <Th>First Name</Th>
-                    <Th>Last Name</Th>
-                    <Th>User Role</Th>
-                    <Th>Action</Th>
-                    <Th>Remove</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-
-                  {this.state.users.map(result => (
-                    <Tr key={result._id}>
-                      <Td>{Moment(result.date).format('DD MMM yyyy hh:mm A')}</Td>
-                      <Td>{result.emailAddress}</Td>
-                      <Td>{result.firstName}</Td>
-                      <Td>{result.lastName}</Td>
-                      <Td>{result.memberType}</Td>
-                      <Td>
-                        {result.memberType == 'admin' &&
-                          <h1></h1>
-                        }
-                        {result.memberType == 'guest' &&
-                          <Button color="success" onClick={() => this.approveMemberHandler(result._id)}>Approve</Button>
-                        }
-                        {result.memberType == 'member' &&
-                          <Button color="danger" onClick={() => this.unapproveMemberHandler(result._id)}>Un-approve</Button>
-                        }
-
-                      </Td>
-                      {
-                        result.memberType != 'admin' &&
-                        <Td><Button color="danger" onClick={() => this.removeMemberHandler(result._id)}>X</Button> </Td>
-                      }
+                <Table hover>
+                  <Thead>
+                    <Tr>
+                      <Th>Date of Signup</Th>
+                      <Th>Email Address</Th>
+                      <Th>First Name</Th>
+                      <Th>Last Name</Th>
+                      <Th>User Role</Th>
+                      <Th>Action</Th>
+                      <Th>Remove</Th>
                     </Tr>
-                  ))}
+                  </Thead>
+                  <Tbody>
 
-                </Tbody>
+                    {this.state.users.map(result => (
+                      <Tr key={result._id}>
+                        <Td>{Moment(result.date).format('DD MMM yyyy hh:mm A')}</Td>
+                        <Td>{result.emailAddress}</Td>
+                        <Td>{result.firstName}</Td>
+                        <Td>{result.lastName}</Td>
+                        <Td>{result.memberType}</Td>
+                        <Td>
+                          {result.memberType == 'admin' &&
+                            <h1></h1>
+                          }
+                          {result.memberType == 'guest' &&
+                            <Button color="success" onClick={() => this.approveMemberHandler(result._id)}>Approve</Button>
+                          }
+                          {result.memberType == 'member' &&
+                            <Button color="danger" onClick={() => this.unapproveMemberHandler(result._id)}>Un-approve</Button>
+                          }
+                        </Td>
+                        {
+                          result.memberType != 'admin' &&
+                          <Td><Button color="danger" onClick={() => this.removeMemberHandler(result._id)}>X</Button> </Td>
+                        }
+                      </Tr>
+                    ))}
 
-              </Table>
-            </div></section>
-            
-            </div>
+                  </Tbody>
+
+                </Table>
+              </div></section>
+
+          </div>
         </body>
 
         :

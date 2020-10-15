@@ -1,5 +1,6 @@
 import React, { Component, useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -120,58 +121,62 @@ class EventsFeed extends Component {
                 />
 
                 <section id="display">
-                    <div className="container">
-                        {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
-                            this.props.auth.user.memberType == 'admin') &&
-                            <Button color="success" onClick={() => { this.toggle() }} className="addEventBtn">Add an Event</Button>
-                        }
-                        <hr></hr>
+                    {/* <div className="container"> */}
 
-                        <h1>Upcoming events</h1>
+                    <hr></hr>
+                    <Table className="eventsTable">
 
-                        <hr></hr>
+                        <Tr className="eventsTr">
+                            <Td className="eventsTd">
+                                <h1>Upcoming events</h1>
+                                <hr></hr>
+                            </Td>
+                            <Td className="eventsTd">
+                                {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
+                                    this.props.auth.user.memberType == 'admin') &&
+                                    <Button color="success" onClick={() => { this.toggle() }} className="addEventBtn">Add an Event</Button>
+                                }
+                            </Td>
+                        </Tr>
 
                         {this.state.events.map(result => (
-                            <div key={result._id}>
-                                <div className="eventfeedimg">
-                                    <h1>{Moment(result.eventDate).format('ddd DD MMM yyyy')}
-                                    </h1>
-                                    <p>{Moment(result.eventDate).format('hh:mm A')}    </p>
-                                    <hr width="80%" align="center"></hr>
-                                    {result.eventVenue &&
-                                        <p>{result.eventVenue}</p>
-                                    }
-
-                                </div>
-
-                                <div className="eventfeedmain">
-                                    <p><span className="highlight">{result.eventTitle} </span></p>
-                                    <p>Details: {result.eventDescription}</p>
-                                    <p>Type of Event: {result.eventType}</p>
-                                    {
-                                        (result.eventParticipants) ?
-                                            result.eventParticipants.includes(user.id) ?
-                                                <p><button type="submit" className="buttonRed" onClick={() => this.unjoinHandler(result._id)}>Back out of event</button></p> :
-                                                this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
-                                                    this.props.auth.user.memberType == 'admin') ?
-                                                    <p><button type="submit" className="buttonGreen" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
-                                                    <p>To join this event, please <Link to="/login">log in</Link> with your approved CFC WA Account.</p>
-                                            :
-                                            <p></p>
-                                    }
-                                    <p>Current number of participants: {result.eventParticipants.length}</p>
-                                    <hr></hr>
-                                </div>
-
-                                {result.eventImageURL &&
-                                    <div className="eventfeedphoto">
-                                        <img src={result.eventImageURL} />
-                                    </div>
-                                }
-                            </div>
-                        ))}
-
-                    </div></section>
+                            <Tr className="eventsTr" key={result._id}>
+                                    <Td className="eventfeedimg eventsTd">
+                                        <h1>{Moment(result.eventDate).format('ddd DD MMM yyyy')}
+                                        </h1>
+                                        <p>{Moment(result.eventDate).format('hh:mm A')}    </p>
+                                        <hr width="80%" align="center"></hr>
+                                        {result.eventVenue &&
+                                            <p>{result.eventVenue}</p>
+                                        }
+                                    </Td>
+                                    <Td className="eventfeedmain eventsTd">
+                                        <p><span className="highlight">{result.eventTitle} </span></p>
+                                        <p>Details: {result.eventDescription}</p>
+                                        <p>Type of Event: {result.eventType}</p>
+                                        {
+                                            (result.eventParticipants) ?
+                                                result.eventParticipants.includes(user.id) ?
+                                                    <p><button type="submit" className="buttonRed" onClick={() => this.unjoinHandler(result._id)}>Back out of event</button></p> :
+                                                    this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
+                                                        this.props.auth.user.memberType == 'admin') ?
+                                                        <p><button type="submit" className="buttonGreen" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
+                                                        <p>To join this event, please <Link to="/login">log in</Link> with your approved CFC WA Account.</p>
+                                                :
+                                                <p></p>
+                                        }
+                                        <p>Current number of participants: {result.eventParticipants.length}</p>
+                                        <hr></hr>
+                                    </Td>
+                                    <Td className="eventfeedphoto eventsTd">
+                                        {result.eventImageURL &&
+                                            <img src={result.eventImageURL} />
+                                        }
+                                    </Td>
+                            </Tr>
+                        ))}                       
+                    </Table>
+                </section>
 
 
                 <Modal isOpen={this.state.displayModal} >

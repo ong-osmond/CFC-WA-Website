@@ -78,13 +78,14 @@ class AdminManageEvents extends Component {
 
           <div className='dashboardSections'>
 
+            <section className="d-none d-sm-block">
             <Sidebar />
+            </section>
 
-            <section id="display">
+            <section id="adminDisplay">
               <div>
                 <h1>Manage Events</h1>
                 <br></br>
-
                 <Table hover>
                   <Thead>
                     <Tr>
@@ -100,7 +101,6 @@ class AdminManageEvents extends Component {
                     </Tr>
                   </Thead>
                   <Tbody>
-
                     {this.state.events.map(result => (
                       <Tr key={result._id}>
                         <Td>{Moment(result.creationDate).format('DD MMM yyyy hh:mm A')}</Td>
@@ -129,9 +129,7 @@ class AdminManageEvents extends Component {
                         }
                       </Tr>
                     ))}
-
                   </Tbody>
-
                 </Table>
               </div></section>
 
