@@ -9,7 +9,7 @@ const db = require("../../models");
 // @access Private
 router.post("/member/create", (req, res) => {
   // TODO: Validation
-  const newMember = new db.member({
+  const newMember = new db.Member({
       user_id: [req.body.user_id],
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -25,8 +25,36 @@ router.post("/member/create", (req, res) => {
 }
 )
 
+// @route GET member:id
+// @desc Get member info
+// @access Private
+router.get("/member:id", (req, res) => {
+    db.Member.find({ _id : req.params.id }).then(member => {
+      // Check if members exist
+      if (!member) {
+        return res.status(404).json({ memberNotFound: "No member found." });
+      } else res.send(member);
+    }
+    );
+  }
+  );
 
 
+// @route PUT member/update:id
+// @desc Update member info
+// @access Private
+router.put("/update:id", (req, res) => {
+    db.Member.findOneAndUpdate({ _id : req.params.id }, { $set: req.body } 
+        , { useFindAndModify : false })
+    .then(member => {
+      // Check if members exist
+      if (!member) {
+        return res.status(404).json({ memberNotFound: "No member found." });
+      } else res.send(member);
+    }
+    );
+  }
+  );
   
 
 module.exports = router;
