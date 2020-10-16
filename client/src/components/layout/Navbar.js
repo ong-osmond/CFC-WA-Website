@@ -6,6 +6,7 @@ import { logoutUser } from "../../actions/authActions";
 //import "../../css/style.css";
 
 
+
 class Navbar extends Component {
 
   onLogoutClick = (e) => {
@@ -17,11 +18,20 @@ class Navbar extends Component {
 
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-warning fixed-top">
-        <a className="nav-bar brand" id="branding" href="/">
-          <h1 className="d-none d-sm-block"><span className="highlight"> Couples for Christ </span > WA</h1>
-          <h1 className="d-block d-sm-none"><span className="highlight"> CFC </span > WA
-            </h1>
 
+        {/* {this.props.auth.isAuthenticated && this.props.auth.user.memberType.includes("admin") &&
+          <label for="check">
+            <i class="fas fa-bars" id="sidebar_btn"></i>
+          </label>
+        } */}
+
+
+
+
+        <a className="nav-bar brand">
+          <h1 className="d-none d-sm-block"><b><span style={{ color: "#415a84" }}>Couples for Christ</span></b><span style={{ color: "#ffffff" }}> WA</span ></h1>
+          <h1 className="d-block d-sm-none"><b><span style={{ color: "#415a84" }}>CFC</span></b><span style={{ color: "#ffffff" }}> WA</span >
+          </h1>
         </a>
         <span className="custom-toggler">
           <button className="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,14 +56,14 @@ class Navbar extends Component {
             </li>
             {this.props.auth.isAuthenticated &&
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/dashboard">Dashboard</Link>
               </li>
             }
-            {/* {this.props.auth.isAuthenticated &&
+            {this.props.auth.isAuthenticated &&
               <li>
                 <Link to="/profile">Profile</Link>
               </li>
-            } */}
+            }
             {this.props.auth.isAuthenticated ?
               <li>
                 <Link

@@ -119,21 +119,23 @@ class EventsFeed extends Component {
                     pauseOnHover
                 />
 
-                <section id="display">
+                <section id="so_display">
                     <div className="container">
                         {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
                             this.props.auth.user.memberType == 'admin') &&
                             <Button color="success" onClick={() => { this.toggle() }} className="addEventBtn">Add an Event</Button>
                         }
-                        <hr></hr>
-
-                        <h1>Upcoming events</h1>
+                        
+                        <h2>Upcoming events</h2>
 
                         <hr></hr>
 
                         {this.state.events.map(result => (
+                            <section id="eventfeed">
+                            <div class="container">
+                            
                             <div key={result._id}>
-                                <div className="eventfeedimg">
+                                <div class="eventfeedimg">
                                     <h1>{Moment(result.eventDate).format('ddd DD MMM yyyy')}
                                     </h1>
                                     <p>{Moment(result.eventDate).format('hh:mm A')}    </p>
@@ -144,7 +146,7 @@ class EventsFeed extends Component {
 
                                 </div>
 
-                                <div className="eventfeedmain">
+                                <div class="eventfeedmain">
                                     <p><span className="highlight">{result.eventTitle} </span></p>
                                     <p>Details: {result.eventDescription}</p>
                                     <p>Type of Event: {result.eventType}</p>
@@ -160,15 +162,20 @@ class EventsFeed extends Component {
                                             <p></p>
                                     }
                                     <p>Current number of participants: {result.eventParticipants.length}</p>
-                                    <hr></hr>
+                                    
                                 </div>
 
                                 {result.eventImageURL &&
-                                    <div className="eventfeedphoto">
+                                    <div class="eventfeedphoto">
                                         <img src={result.eventImageURL} />
                                     </div>
+                                
                                 }
                             </div>
+
+                           
+                            </div>
+                            </section>
                         ))}
 
                     </div></section>

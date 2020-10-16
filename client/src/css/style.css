@@ -100,12 +100,17 @@ header a:hover{
 }
 
 
-/*Showcase */
+#blueline{
+    padding: 12px;
+    background:  #415a84;
+} 
+
+/* AdminManageEvent,Message,Profile; EventFeed */
 #display{
     min-height: 400px;
     text-align: left;
-    padding-left: 40px;
-    margin-top: 50px;
+    padding-left: 20px;
+    /* margin-top: 10px; */
     padding-right: 40px;
 }
 
@@ -115,16 +120,56 @@ header a:hover{
     margin-bottom: 10px;
 }
 
+#display h2{
+    display: inline;
+    margin-top: 20px;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+
+#display a{
+    padding-left: 5px;
+}
+
+/* signed out user display */
+
+#so_display{
+    min-height: 400px;
+    text-align: left;
+    padding-left: 40px;
+    margin-top: 50px;
+    padding-right: 40px;
+}
+
+#so_display h1{
+    margin-top: 20px;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+#so_display h2{
+    display: inline;
+    margin-top: 20px;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+#so_display a{
+    padding-left: 5px;
+}
+
+/*Showcase */
 #showcase{
     min-height: 400px;
-    background: url('../images/cfcbg2.jpg') no-repeat;
+    background: url('../images/cfcbgmain.jpg') no-repeat;
     background-size: 1300px 400px;
     text-align: center;
     color: #000000;
 }
 
 #showcase h5{
-    margin-top: 20px;
+    margin-top: 50px;
     text-align: right;
 }
 
@@ -258,6 +303,10 @@ header a:hover{
     margin: 12px 0;
 }
 
+.eventfeed{
+    background-color: #ffffff;
+}
+
 .eventfeedimg{
     width: 25%;
     float: left;
@@ -360,12 +409,12 @@ article#main-col{
     z-index: 1;
     background: #415a84;
     position: relative;
-    margin-top: 25px;
+    /* margin-top: 25px; */
     width: 250px;
     height: calc(100% - 9%);
-    transition: 0.3s;
-    transition-property: width;
-    overflow-y: auto;
+    transition: 0.5s;
+    transition-property: left;
+    /* overflow-y: auto; */
 }
 
 .sidebar .sidebar-menu .profile img {
@@ -411,7 +460,7 @@ article#main-col{
 }
 
 .sidebar .sidebar-menu .item .sub-menu{
-    background: #535353;
+    background: #9fb9e7;
     overflow: hidden;
     max-height: 0;
     transition:0.3s;
@@ -431,7 +480,7 @@ article#main-col{
 }
 
 .sidebar .sidebar-menu .item .sub-menu a:hover{
-    background: lightgreen;
+    background: #e8ca1d;
 }
 
 .sidebar .sidebar-menu .item .sub-menu i{
@@ -443,32 +492,87 @@ article#main-col{
     max-height: 500px;
 }
 
+.sidebar i{
+    padding-right: 10px;
+}
+
+label #sidebar_btn{
+    z-index: 1;
+    color: #e8ca1d;
+    position: fixed;
+    cursor: pointer;
+    left: 5px;
+    font-size: 20px;
+    /* border: 1px solid red; */
+    display: inline;
+    transition: 0.5s;
+    transition-property: color;
+}
+
+label #sidebar_btn:hover{
+    color: #ffffff;
+}
+
+#check:checked ~ .dashboardSections .sidebar{
+    left: -190px;
+}
+
+#check:checked ~ .dashboardSections .sidebar .sidebar-menu .menu-btn span{
+    display: none;
+    /* color: red; */
+}
+
+#check:checked ~ .dashboardSections .sidebar .sidebar-menu a{
+    font-size: 20px;
+    margin-left: 185px;
+    width: 80px;
+}
+
+#check:checked ~ .dashboardSections .sidebar .sidebar-menu .sub-menu span{
+    display: none;
+    /* color: red; */
+}
+
+#check:checked ~ .dashboardSections .sidebar .sidebar-menu .sub-menu a{
+    font-size: 20px;
+    margin-left: 185px;
+    width: 80px;
+}
+
+
+
 .dash-main-container {
-    width: (100% - 250px);
-    margin-top: 50px;
-    margin-left: 250px;
-    padding: 15px;
-    height: 100vh;
+    /* width: (100% - 250px); */
+    /* margin-top: 50px; */
+    /* margin-left: 250px; */
+    /* padding: 15px; */
+    /* height: 100vh; */
+    /* border: 1px solid red; */
     transition: 0.3s;
     color: #000000;
-    }
+}
 
-table {
+#check:checked ~ .dashboardSections #display{
+    position: absolute;
+    width: calc(100% - 50px);
+    margin-left: 50px;
+}
+
+
+/* table {
         border-collapse: collapse;
-      }
+      } */
       
-table, th, td {
+/* table, th, td {
         border: 1px solid black;
-      }
+      } */
 
 .dashboardSections {
     display:flex; flex-direction:row;
 }
 
 .addEventBtn {
-    position: absolute;
-    right: 2.5%;
-    padding: 10px;
+    float: right;
 }
       
 /*Media queries */
@@ -481,6 +585,13 @@ table, th, td {
         float:none;
         text-align:center;
         width:100%
+    }
+
+    #eventfeed .eventfeedimg,
+    #eventfeed .eventfeedmain, 
+    #eventfeed .eventfeedphoto{
+        float:none;
+        width: 100%;
     }
 
     header{

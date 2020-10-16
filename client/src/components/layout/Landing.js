@@ -10,7 +10,7 @@ class Landing extends Component {
         <header>
           <Navbar />
         </header>
-
+        <section id="blueline"></section>
         <section id="showcase">
           <div className="container">
             <h5>Families in the Holy Spirit, renewing the face of the earth</h5>

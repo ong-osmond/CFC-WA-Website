@@ -21,10 +21,16 @@ class Dashboard extends Component {
     const { user } = this.props.auth;
     return (
       <body>
+        <input type="checkbox" id="check" />
         <header>
           <Navbar />
         </header>
-        <Sidebar />
+        {this.props.auth.isAuthenticated && user.memberType.includes("admin") &&
+          <div className='dashboardSections'>
+            <Sidebar />
+          </div>
+        }
+
       </body>
     );
   }

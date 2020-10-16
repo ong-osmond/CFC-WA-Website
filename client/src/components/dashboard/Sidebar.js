@@ -17,43 +17,57 @@ class Sidebar extends Component {
         return (
             <div className="sidebar" >
                 <div className="sidebar-menu">
+                <label for="check">
+                    <i class="far fa-window-close" id="sidebar_btn"></i>
+                </label>
                     <center className="profile">
                         <img src={DefaultImage}></img>
-                        <p>Greetings in Christ, {user.firstName}!</p>
+                        <p>{user.firstName}</p>
                     </center>
                     <li className="item">
                         <a href="/dashboard" className="menu-btn">
                             <i className="fas fa-desktop"></i><span>Dashboard</span>
                         </a>
                     </li>
+                    {/* <li className="item">
+                        <a href="#profile" className="menu-btn">
+                            <i className="fas fa-user"></i><span>Profile</span>
+                        </a>
+                    </li> */}
                     {this.props.auth.isAuthenticated && this.props.auth.user.memberType == 'admin' &&
                         <li className="item" id="profile">
-                            <a href="#profile" className="menu-btn">
-                                <i className="fas fa-users"></i><span>Members<i className="fas fa-chevron-down drop-down"></i></span>
+                            <a href="/admin/members/manage" className="menu-btn">
+                                <i className="fas fa-users"></i><span>Members
+                                    {/* <i className="fas fa-chevron-down drop-down"></i> */}
+                                </span>
                             </a>
-                            <div className="sub-menu">
+                            {/* <div className="sub-menu">
                                 <a href="/admin/members/manage"><i className="fas fa-image"></i><span>Manage Members</span></a>
-                            </div>
+                            </div> */}
                         </li>
                     }
                     {this.props.auth.isAuthenticated && this.props.auth.user.memberType == 'admin' &&
                         <li className="item" id="messages">
-                            <a href="#messages" className="menu-btn">
-                                <i className="fas fa-calendar-week"></i><span>Events<i className="fas fa-chevron-down drop-down"></i></span>
+                            <a href="/admin/events/manage" className="menu-btn">
+                                <i className="far fa-calendar-alt"></i><span>Events
+                                    {/* <i className="fas fa-chevron-down drop-down"></i> */}
+                                    </span>
                             </a>
-                            <div className="sub-menu">
-                                <a href="/admin/events/manage"><i className="fas fa-envelope"></i><span>Manage Events</span></a>
-                            </div>
+                            {/* <div className="sub-menu">
+                                <a href="/admin/events/manage"><i className="far fa-calendar-alt"></i><span>Manage Events</span></a>
+                            </div> */}
                         </li>
                     }
                     {this.props.auth.isAuthenticated && this.props.auth.user.memberType == 'admin' &&
                         <li className="item" id="messages">
-                            <a href="#messages" className="menu-btn">
-                                <i className="fas fa-calendar-week"></i><span>News<i className="fas fa-chevron-down drop-down"></i></span>
+                            <a href="/admin/events/manage" className="menu-btn">
+                                <i className="far fa-newspaper"></i><span>News
+                                    {/* <i className="fas fa-chevron-down drop-down"></i> */}
+                                    </span>
                             </a>
-                            <div className="sub-menu">
+                            {/* <div className="sub-menu">
                                 <a href="/admin/events/manage"><i className="fas fa-envelope"></i><span>Manage Announcements</span></a>
-                            </div>
+                            </div> */}
                         </li>
                     }
 

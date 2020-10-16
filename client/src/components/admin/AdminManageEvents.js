@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
-import { Button } from 'reactstrap';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import { Button , Table } from 'reactstrap';
+// import { Table, thead, Tbody, tr, th, td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -72,6 +72,7 @@ class AdminManageEvents extends Component {
       this.props.auth.isAuthenticated && user.memberType.includes("admin") ?
 
         <body>
+          <input type="checkbox" id="check"/>
           <header>
             <Navbar />
           </header>
@@ -81,40 +82,40 @@ class AdminManageEvents extends Component {
             <Sidebar />
 
             <section id="display">
-              <div>
+              <div className="dash-main-container">
                 <h1>Manage Events</h1>
                 <br></br>
 
                 <Table hover>
-                  <Thead>
-                    <Tr>
-                      <Th>Event Creation Date</Th>
-                      <Th>Created by</Th>
-                      <Th>Event Title</Th>
-                      <Th>Date</Th>
-                      <Th>Description (and Image URL) </Th>
-                      <Th>Venue</Th>
-                      <Th>Participants</Th>
-                      <Th>Action</Th>
-                      <Th>Remove</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
+                  <thead>
+                    <tr>
+                      <th>Creation Date</th>
+                      <th>Created by</th>
+                      <th>Event Title</th>
+                      <th>Event Date</th>
+                      <th>Description</th>
+                      <th>Venue</th>
+                      <th>Participants</th>
+                      <th>Action</th>
+                      <th>Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody>
 
                     {this.state.events.map(result => (
-                      <Tr key={result._id}>
-                        <Td>{Moment(result.creationDate).format('DD MMM yyyy hh:mm A')}</Td>
-                        <Td>{result.creator_details[0].firstName} {result.creator_details[0].lastName}</Td>
-                        <Td>{result.eventTitle}</Td>
-                        <Td>{Moment(result.eventDate).format('ddd DD MMM yyyy hh:mm A')}</Td>
-                        <Td>{result.eventDescription} 
+                      <tr key={result._id}>
+                        <td>{Moment(result.creationDate).format('DD MMM yyyy hh:mm A')}</td>
+                        <td>{result.creator_details[0].firstName} {result.creator_details[0].lastName}</td>
+                        <td>{result.eventTitle}</td>
+                        <td>{Moment(result.eventDate).format('ddd DD MMM yyyy hh:mm A')}</td>
+                        <td>{result.eventDescription} 
                         { result.eventImageURL &&
-                        <p><a href={result.eventImageURL} target="_blank">View Event Image</a></p>
+                        <a href={result.eventImageURL} target="_blank"><i class="fas fa-image"></i></a>
                         }
-                        </Td>
-                        <Td>{result.eventVenue}</Td>
-                        <Td>{result.eventParticipants.length}</Td>
-                        <Td>
+                        </td>
+                        <td>{result.eventVenue}</td>
+                        <td>{result.eventParticipants.length}</td>
+                        <td>
                           {user.memberType == 'admin' && !result.eventApproved &&
                             <Button color="success" onClick={() => this.approveEventHandler(result._id)}>Approve</Button>
                           }
@@ -122,18 +123,19 @@ class AdminManageEvents extends Component {
                             <Button color="danger" onClick={() => this.unapproveEventHandler(result._id)}>Un-approve</Button>
                           }
 
-                        </Td>
+                        </td>
                         {
                           result.memberType != 'admin' &&
-                          <Td><Button color="danger" onClick={() => this.removeEventHandler(result._id)}>X</Button> </Td>
+                          <td><Button color="danger" onClick={() => this.removeEventHandler(result._id)}>X</Button> </td>
                         }
-                      </Tr>
+                      </tr>
                     ))}
 
-                  </Tbody>
+                  </tbody>
 
                 </Table>
-              </div></section>
+              </div>
+              </section>
 
           </div>
         </body>

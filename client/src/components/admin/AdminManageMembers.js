@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
-import { Button } from 'reactstrap';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import { Button , Table } from 'reactstrap';
+// import { table, Thead, Tbody, tr, th, td } from 'react-super-responsive-table';
+// import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
@@ -72,6 +72,7 @@ class AdminManageMembers extends Component {
       this.props.auth.isAuthenticated && user.memberType.includes("admin") ?
 
         <body>
+          <input type="checkbox" id="check"/>
           <header>
             <Navbar />
           </header>
@@ -81,32 +82,32 @@ class AdminManageMembers extends Component {
           <Sidebar />
 
           <section id="display">
-            <div>
+            <div className="dash-main-container">
               <h1>Manage Members</h1>
               <br></br>
 
               <Table hover>
-                <Thead>
-                  <Tr>
-                    <Th>Date of Signup</Th>
-                    <Th>Email Address</Th>
-                    <Th>First Name</Th>
-                    <Th>Last Name</Th>
-                    <Th>User Role</Th>
-                    <Th>Action</Th>
-                    <Th>Remove</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
+                <thead>
+                  <tr>
+                    <th>Date of Signup</th>
+                    <th>Email Address</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>User Role</th>
+                    <th>Action</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
 
                   {this.state.users.map(result => (
-                    <Tr key={result._id}>
-                      <Td>{Moment(result.date).format('DD MMM yyyy hh:mm A')}</Td>
-                      <Td>{result.emailAddress}</Td>
-                      <Td>{result.firstName}</Td>
-                      <Td>{result.lastName}</Td>
-                      <Td>{result.memberType}</Td>
-                      <Td>
+                    <tr key={result._id}>
+                      <td>{Moment(result.date).format('DD MMM yyyy hh:mm A')}</td>
+                      <td>{result.emailAddress}</td>
+                      <td>{result.firstName}</td>
+                      <td>{result.lastName}</td>
+                      <td>{result.memberType}</td>
+                      <td>
                         {result.memberType == 'admin' &&
                           <h1></h1>
                         }
@@ -117,15 +118,15 @@ class AdminManageMembers extends Component {
                           <Button color="danger" onClick={() => this.unapproveMemberHandler(result._id)}>Un-approve</Button>
                         }
 
-                      </Td>
+                      </td>
                       {
                         result.memberType != 'admin' &&
-                        <Td><Button color="danger" onClick={() => this.removeMemberHandler(result._id)}>X</Button> </Td>
+                        <td><Button color="danger" onClick={() => this.removeMemberHandler(result._id)}>X</Button> </td>
                       }
-                    </Tr>
+                    </tr>
                   ))}
 
-                </Tbody>
+                </tbody>
 
               </Table>
             </div></section>
