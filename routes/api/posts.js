@@ -12,7 +12,7 @@ router.post("/post/create", (req, res) => {
   const newPost = new db.Post({
     creator_id: [req.body.creator_id],
     postTitle: req.body.postTitle,
-    postDescription: req.body.postDescription,
+    postText: req.body.postText,
     postTags: [req.body.postTags],
     postImageURL: req.body.postImageURL,
     postApproved: false,
@@ -26,11 +26,11 @@ router.post("/post/create", (req, res) => {
 }
 )
 
-// @route GET api/events/manage 
-// @desc Get events for admin to manage
-// @access Privage
-router.get("/events/manage", (req, res) => {
-  db.Event.aggregate(
+// @route GET api/posts/manage 
+// @desc Get posts for admin to manage
+// @access Private
+router.get("/posts/manage", (req, res) => {
+  db.Post.aggregate(
     [
       {
         $lookup:
@@ -42,115 +42,25 @@ router.get("/events/manage", (req, res) => {
         }
       }
     ]
-  ).sort({ eventDate: 1 }).then(events => {
-    // Check if events exist
-    if (!events) {
-      return res.status(404).json({ eventsNotFound: "No events found." });
-    } else res.send(events);
+  ).sort({ creationDate: -1 }).then(posts => {
+    // Check if posts exist
+    if (!posts) {
+      return res.status(404).json({ postsNotFound: "No posts found." });
+    } else res.send(posts);
   }
   );
 }
 );
 
 
-// @route GET events/upcoming 
-// @desc Get events that have been approved
+// @route GET posts/current 
+// @desc Get posts that have been approved but restrict to last 3 months
 // @access Public
-router.get("/events/upcoming", (req, res) => {
-  db.Event.find({ eventDate: { $gte: new Date() }, eventApproved: true }).sort({ eventDate: 1 }).then(events => {
-    // Check if events exist
-    if (!events) {
-      return res.status(404).json({ eventsNotFound: "No events found." });
-    } else res.send(events);
-  }
-  );
-}
-);
-
-
-// @route PUT api/event/approve
-// @desc PUT Approve an Event
-// @access Private
-router.put("/event/approve:id", (req, res) => {
-  db.Event.findOneAndUpdate({ _id: req.params.id }, { $set: { eventApproved: true } }).then(
-    db.Event.find({}).sort({ date: 1 }).then(events => {
-      // Check if events exist
-      if (!events) {
-        return res.status(404).json({ eventsNotFound: "No events found." });
-      } else res.send(events);
-    }
-    )
-  )
-}
-);
-
-// @route PUT api/event/unapprove
-// @desc PUT Unapprove an Event
-// @access Private
-router.put("/event/unapprove:id", (req, res) => {
-  db.Event.findOneAndUpdate({ _id: req.params.id }, { $set: { eventApproved: false } }).then(
-    db.Event.find({}).sort({ date: 1 }).then(events => {
-      // Check if events exist
-      if (!events) {
-        return res.status(404).json({ eventsNotFound: "No events found." });
-      } else res.send(events);
-    }
-    )
-  )
-}
-);
-
-// @route PUT api/events/join 
-// @desc PUT events
-// @access Private
-router.put("/event/join:id", (req, res) => {
-  db.Event.findOneAndUpdate({ _id: req.params.id }, { $push: { eventParticipants: req.body.participant_id } }).then(events => {
-    // Check if events exist
-    if (!events) {
-      return res.status(404).json({ eventsNotFound: "No such event found." });
-    } else res.send(events);
-  }
-  );
-}
-);
-
-// @route PUT api/events/unjoin 
-// @desc PUT events
-// @access Private
-router.put("/event/unjoin:id", (req, res) => {
-  db.Event.findOneAndUpdate({ _id: req.params.id }, { $pull: { eventParticipants: req.body.participant_id } }).then(events => {
-    // Check if events exist
-    if (!events) {
-      return res.status(404).json({ eventsNotFound: "No such event found." });
-    } else res.send(events);
-  }
-  );
-}
-);
-
-// @route PUT api/events/remove
-// @desc PUT Remove event
-// @access Private
-router.put("/event/remove:id", (req, res) => {
-  db, Event.remove({ _id: req.params.id }, { justOne: true }).then(
-    db.Event.find({}).then(events => {
-      // Check if events exist
-      if (!events) {
-        return res.status(404).json({ eventsNotFound: "No events found." });
-      } else res.send(events);
-    }
-    )
-  )
-}
-);
-
-
-// @route GET api/events/eventsFull 
-// @desc Get events with Creator details
-// @access Private
-router.get("/eventsFull", (req, res) => {
-  db.Event.aggregate(
+router.get("/posts/current", (req, res) => {
+  db.Post.aggregate(
     [
+      { $match: { postApproved: true } }
+      ,
       {
         $lookup:
         {
@@ -159,21 +69,78 @@ router.get("/eventsFull", (req, res) => {
           foreignField: "_id",
           as: "creator_details"
         }
-        ,
-        $project: { password: 0 }
-        ,
-        $sort: {eventDate : 1 }
       }
+      ,
+
+      {
+        $project: {
+          "creator_details.password": 0
+          , "creator_details.date": 0
+          , "creator_details.memberType": 0
+        }
+      }
+      ,
+      { $sort: { creationDate: -1 } }
     ]
+  ).sort({ creationDate: -1 }).then(posts => {
+    // Check if events exist
+    if (!posts) {
+      return res.status(404).json({ postsNotFound: "No posts found." });
+    } else res.send(posts);
+  }
+  );
+}
+);
+
+
+// @route PUT api/post/approve
+// @desc PUT Approve a Post
+// @access Private
+router.put("/post/approve:id", (req, res) => {
+  db.Post.findOneAndUpdate({ _id: req.params.id }, { $set: { postApproved: true } }).then(
+    db.Post.find({}).sort({ creationDate: -1 }).then(posts => {
+      // Check if posts exist
+      if (!posts) {
+        return res.status(404).json({ postsNotFound: "No posts found." });
+      } else res.send(posts);
+    }
+    )
   )
-    .then(events => {
-      res.json(events);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
+}
+);
+
+// @route PUT api/post/unapprove
+// @desc PUT Unapprove a Post
+// @access Private
+router.put("/post/unapprove:id", (req, res) => {
+  db.Post.findOneAndUpdate({ _id: req.params.id }, { $set: { postApproved: false } }).then(
+    db.Post.find({}).sort({ date: -1 }).then(posts => {
+      // Check if events exist
+      if (!posts) {
+        return res.status(404).json({ postsNotFound: "No posts found." });
+      } else res.send(posts);
+    }
+    )
+  )
+}
+);
 
 
+
+// @route PUT api/post/remove
+// @desc PUT Remove post
+// @access Private
+router.put("/post/remove:id", (req, res) => {
+  db.Post.remove({ _id: req.params.id }, { justOne: true }).then(
+    db.Post.find({}).then(posts => {
+      // Check if posts exist
+      if (!posts) {
+        return res.status(404).json({ postsNotFound: "No posts found." });
+      } else res.send(posts);
+    }
+    )
+  )
+}
+);
 
 module.exports = router;

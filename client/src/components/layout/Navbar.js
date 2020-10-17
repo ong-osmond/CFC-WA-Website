@@ -21,7 +21,7 @@ class Navbar extends Component {
 
         {/* {this.props.auth.isAuthenticated && this.props.auth.user.memberType.includes("admin") &&
           <label for="check">
-            <i class="fas fa-bars" id="sidebar_btn"></i>
+            <i className="fas fa-bars" id="sidebar_btn"></i>
           </label>
         } */}
 
@@ -52,6 +52,13 @@ class Navbar extends Component {
                 to="/events"
               >
                 Events
+            </Link>
+            </li>
+            <li>
+              <Link
+                to="/posts"
+              >
+                News
             </Link>
             </li>
             {this.props.auth.isAuthenticated &&

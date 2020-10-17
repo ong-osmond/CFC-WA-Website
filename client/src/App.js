@@ -16,6 +16,8 @@ import EventForm from "./components/events/EventForm";
 import AdminManageMembers from "./components/admin/AdminManageMembers";
 import AdminManageEvents from "./components/admin/AdminManageEvents";
 import EventDetails from "./components/events/EventDetails";
+import PostsFeed from "./components/posts/PostsFeed";
+import AdminManageNews from "./components/admin/AdminManageNews";
 
 
 
@@ -48,12 +50,14 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/events" component={EventsFeed} />
+            <Route exact path="/posts" component={PostsFeed} />
 
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               {/* <PrivateRoute exact path="/profile" component={Profile} /> */}
               <PrivateRoute exact path="/admin/members/manage" component={AdminManageMembers} />
               <PrivateRoute exact path="/admin/events/manage" component={AdminManageEvents} />
+              <PrivateRoute exact path="/admin/news/manage" component={AdminManageNews} />
               <PrivateRoute exact path="/events/create" component={EventForm} />
               <PrivateRoute exact path="/eventDetails" component={EventDetails} />
             </Switch>

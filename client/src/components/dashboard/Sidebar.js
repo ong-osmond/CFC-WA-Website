@@ -18,7 +18,7 @@ class Sidebar extends Component {
             <div className="sidebar" >
                 <div className="sidebar-menu">
                 <label for="check">
-                    <i class="far fa-window-close" id="sidebar_btn"></i>
+                    <i className="far fa-window-close" id="sidebar_btn"></i>
                 </label>
                     <center className="profile">
                         <img src={DefaultImage}></img>
@@ -60,7 +60,7 @@ class Sidebar extends Component {
                     }
                     {this.props.auth.isAuthenticated && this.props.auth.user.memberType.includes('admin') &&
                         <li className="item" id="messages">
-                            <a href="/admin/events/manage" className="menu-btn">
+                            <a href="/admin/news/manage" className="menu-btn">
                                 <i className="far fa-newspaper"></i><span>News
                                     {/* <i className="fas fa-chevron-down drop-down"></i> */}
                                     </span>

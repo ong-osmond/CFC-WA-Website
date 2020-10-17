@@ -84,11 +84,48 @@ export default {
     return axios.get("/api/events/event/eventDetails" + id);
   }
   ,
-
   
   // Get member info
   getMemberInfo: function (id) {
     return axios.get("/api/users/user/info" + id);
   }
+
+  ,
+
+  // Create a post
+  createPost: function (request) {
+    return axios.post("api/posts/post/create", request)
+  }
+  
+  ,
+  // Gets all current posts
+  getPosts: function () {
+    return axios.get("/api/posts/posts/current");
+  }
+  ,
+
+  // Admin manage posts
+  managePosts: function () {
+    return axios.get("/api/posts/posts/manage");
+  }
+  ,
+
+  // Approve a post
+  approvePost: function (id) {
+    return axios.put("/api/posts/post/approve" + id);
+  }
+  ,
+
+  // Unapprove a post
+  unapprovePost: function (id) {
+    return axios.put("/api/posts/post/unapprove" + id);
+  }
+  ,
+
+  // Remove a post
+  removePost: function (id) {
+    return axios.put("/api/posts/post/remove" + id);
+  }
+  ,
 
 };

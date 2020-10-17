@@ -3,11 +3,14 @@ const router = require("express").Router();
 const userRoutes = require("./users");
 const eventRoutes = require("./events");
 const memberRoutes = require("./members");
+const postRoutes = require("./posts")
 
 // User Route
 router.use("/users", userRoutes);
 // Event Route
 router.use("/events", eventRoutes);
+// Post Route
+router.use("/posts", postRoutes);
 // Member Info Route
 router.use("/members", memberRoutes);
 

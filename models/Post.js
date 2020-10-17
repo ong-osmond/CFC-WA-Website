@@ -17,7 +17,7 @@ const PostSchema = new Schema({
     type: String,
     required: true
   },
-  postDescription: {
+  postText: {
     type: String,
     required: true
   },

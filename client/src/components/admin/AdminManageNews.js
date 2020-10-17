@@ -12,29 +12,29 @@ import Moment from 'moment';
 import Sidebar from "../dashboard/Sidebar";
 
 
-class AdminManageEvents extends Component {
+class AdminManageNews extends Component {
 
   state = {
-    events: []
+    posts: []
   };
 
   componentDidMount() {
-    this.loadEvents();
+    this.loadPosts();
   }
 
-  loadEvents = () => {
-    API.manageEvents()
+  loadPosts = () => {
+    API.managePosts()
       .then((res) => {
-        this.setState({ events: res.data })
+        console.log(res);
+        this.setState({ posts: res.data })
       })
       .catch(err => console.log(err));
   };
 
 
-  approveEventHandler = (id) => {
-    API.approveEvent(id).then((res) => {
-      console.log(res);
-      this.loadEvents()
+  approvePostHandler = (id) => {
+    API.approvePost(id).then((res) => {
+      this.loadPosts()
     })
       .catch((err) => {
         console.log(err);
@@ -42,18 +42,18 @@ class AdminManageEvents extends Component {
   }
 
 
-  unapproveEventHandler = (id) => {
-    API.unapproveEvent(id).then((res) => {
-      this.loadEvents()
+  unapprovePostHandler = (id) => {
+    API.unapprovePost(id).then((res) => {
+      this.loadPosts()
     })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  removeEventHandler = (id) => {
-    API.removeEvent(id).then((res) => {
-      this.loadEvents()
+  removePostHandler = (id) => {
+    API.removePost(id).then((res) => {
+      this.loadPosts()
     })
       .catch((err) => {
         console.log(err);
@@ -83,50 +83,44 @@ class AdminManageEvents extends Component {
 
             <section id="display">
               <div className="dash-main-container">
-                <h1>Manage Events</h1>
+                <h1>Manage News</h1>
                 <br></br>
 
                 <Table hover>
                   <thead>
                     <tr>
                       <th>Creation Date</th>
-                      <th>Created by</th>
-                      <th>Event Title</th>
-                      <th>Event Date</th>
-                      <th>Description</th>
-                      <th>Venue</th>
-                      <th>Participants</th>
+                      <th>Posted by</th>
+                      <th>Title</th>
+                      <th>Text</th>
                       <th>Action</th>
                       <th>Remove</th>
                     </tr>
                   </thead>
                   <tbody>
 
-                    {this.state.events.map(result => (
+                    {this.state.posts.map(result => (
                       <tr key={result._id}>
                         <td>{Moment(result.creationDate).format('DD MMM yyyy hh:mm A')}</td>
                         <td>{result.creator_details[0].firstName} {result.creator_details[0].lastName}</td>
-                        <td>{result.eventTitle}</td>
-                        <td>{Moment(result.eventDate).format('ddd DD MMM yyyy hh:mm A')}</td>
-                        <td>{result.eventDescription} 
-                        { result.eventImageURL &&
-                        <a href={result.eventImageURL} target="_blank"><i className="fas fa-image"></i></a>
+                        <td>{result.postTitle}</td>
+                        <td>{result.postText} 
+                        { result.postImageURL &&
+                        <a href={result.postImageURL} target="_blank"><i className="fas fa-image"></i></a>
                         }
                         </td>
-                        <td>{result.eventVenue}</td>
-                        <td>{result.eventParticipants.length}</td>
                         <td>
-                          {user.memberType == 'admin' && !result.eventApproved &&
-                            <Button color="success" onClick={() => this.approveEventHandler(result._id)}>Approve</Button>
+                          {user.memberType == 'admin' && !result.postApproved &&
+                            <Button color="success" onClick={() => this.approvePostHandler(result._id)}>Approve</Button>
                           }
-                          {user.memberType == 'admin' && result.eventApproved &&
-                            <Button color="danger" onClick={() => this.unapproveEventHandler(result._id)}>Un-approve</Button>
+                          {user.memberType == 'admin' && result.postApproved &&
+                            <Button color="danger" onClick={() => this.unapprovePostHandler(result._id)}>Un-approve</Button>
                           }
 
                         </td>
                         {
                           result.memberType != 'admin' &&
-                          <td><Button color="danger" onClick={() => this.removeEventHandler(result._id)}>X</Button> </td>
+                          <td><Button color="danger" onClick={() => this.removePostHandler(result._id)}>X</Button> </td>
                         }
                       </tr>
                     ))}
@@ -145,11 +139,11 @@ class AdminManageEvents extends Component {
     );
   }
 }
-AdminManageEvents.propTypes = {
+AdminManageNews.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps, { logoutUser })(AdminManageEvents);
+export default connect(mapStateToProps, { logoutUser })(AdminManageNews);

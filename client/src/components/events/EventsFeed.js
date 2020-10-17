@@ -155,10 +155,10 @@ class EventsFeed extends Component {
 
                         {this.state.events.map(result => (
                             <section id="eventfeed">
-                                <div class="container">
+                                <div className="container">
 
                                     <div key={result._id}>
-                                        <div class="eventfeedimg">
+                                        <div className="eventfeedimg">
                                             <h1>{Moment(result.eventDate).format('ddd DD MMM yyyy')}
                                             </h1>
                                             <p>{Moment(result.eventDate).format('hh:mm A')}    </p>
@@ -169,7 +169,7 @@ class EventsFeed extends Component {
 
                                         </div>
 
-                                        <div class="eventfeedmain">
+                                        <div className="eventfeedmain">
                                             <p><span className="highlight">{result.eventTitle} </span></p>
                                             <p>Details: {result.eventDescription}</p>
                                             <p>Type of Event: {result.eventType}</p>
@@ -191,7 +191,7 @@ class EventsFeed extends Component {
                                                     && (result.eventParticipants.length > 0) ?
                                                     result.creator_id == user.id ||
                                                         this.props.auth.user.memberType.includes('admin') ?
-                                                        <p><button type="submit" className="buttonGrey" onClick={() => this.printEventDetailsHandler(result._id)}><i class="fas fa-print"></i></button></p>
+                                                        <p><button type="submit" className="buttonGrey" onClick={() => this.printEventDetailsHandler(result._id)}><i className="fas fa-print"></i></button></p>
                                                         :
                                                         <p></p>
                                                     :
@@ -200,7 +200,7 @@ class EventsFeed extends Component {
                                         </div>
 
                                         {result.eventImageURL &&
-                                            <div class="eventfeedphoto">
+                                            <div className="eventfeedphoto">
                                                 <img src={result.eventImageURL} />
                                             </div>
                                         }
