@@ -77,6 +77,14 @@ export default {
     return axios.put("/api/events/event/remove" + id);
   }
   ,
+
+  // Print attendance sheet
+  printEventDetails: function (id) {
+    console.log("/api/events/event/eventDetails" + id);
+    return axios.get("/api/events/event/eventDetails" + id);
+  }
+  ,
+
   
   // Get member info
   getMemberInfo: function (id) {

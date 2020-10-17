@@ -8,9 +8,10 @@ import API from "../../utils/API";
 import Navbar from "../layout/Navbar"
 import Moment from 'moment';
 import EventForm from "./EventForm";
-//import "../../css/style.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import EventDetails from "./EventDetails";
+
 
 Moment.locale('en');
 
@@ -22,14 +23,16 @@ class EventsFeed extends Component {
 
         this.state = {
             events: [],
-            displayModal: false
+            displayModal: false,
+            eventDetails: {},
+            printEventModal: false
         };
     }
 
     toggle = () => {
         let toggledValue = !this.state.displayModal;
         this.setState({
-            displayModal: toggledValue
+            displayModal: toggledValue,
         });
     };
 
@@ -92,6 +95,26 @@ class EventsFeed extends Component {
             });
     }
 
+
+    printEventModal = () => {
+        let toggledValue = !this.state.printEventModal;
+        this.setState({
+            printEventModal: toggledValue,
+        });
+    };
+
+    printEventDetailsHandler = (id) => {
+        API.printEventDetails(id)
+            .then((res) => {
+                console.log(res);
+                this.setState({ eventDetails: res.data });
+                this.printEventModal();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
     onLogoutClick = (e) => {
         e.preventDefault();
         this.props.logoutUser();
@@ -125,56 +148,67 @@ class EventsFeed extends Component {
                             this.props.auth.user.memberType == 'admin') &&
                             <Button color="success" onClick={() => { this.toggle() }} className="addEventBtn">Add an Event</Button>
                         }
-                        
+
                         <h2>Upcoming events</h2>
 
                         <hr></hr>
 
                         {this.state.events.map(result => (
                             <section id="eventfeed">
-                            <div class="container">
-                            
-                            <div key={result._id}>
-                                <div class="eventfeedimg">
-                                    <h1>{Moment(result.eventDate).format('ddd DD MMM yyyy')}
-                                    </h1>
-                                    <p>{Moment(result.eventDate).format('hh:mm A')}    </p>
-                                    <hr width="80%" align="center"></hr>
-                                    {result.eventVenue &&
-                                        <p>{result.eventVenue}</p>
-                                    }
+                                <div class="container">
 
-                                </div>
+                                    <div key={result._id}>
+                                        <div class="eventfeedimg">
+                                            <h1>{Moment(result.eventDate).format('ddd DD MMM yyyy')}
+                                            </h1>
+                                            <p>{Moment(result.eventDate).format('hh:mm A')}    </p>
+                                            <hr width="80%" align="center"></hr>
+                                            {result.eventVenue &&
+                                                <p>{result.eventVenue}</p>
+                                            }
 
-                                <div class="eventfeedmain">
-                                    <p><span className="highlight">{result.eventTitle} </span></p>
-                                    <p>Details: {result.eventDescription}</p>
-                                    <p>Type of Event: {result.eventType}</p>
-                                    {
-                                        (result.eventParticipants) ?
-                                            result.eventParticipants.includes(user.id) ?
-                                                <p><button type="submit" className="buttonRed" onClick={() => this.unjoinHandler(result._id)}>Back out of event</button></p> :
-                                                this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
-                                                    this.props.auth.user.memberType == 'admin') ?
-                                                    <p><button type="submit" className="buttonGreen" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
-                                                    <p>To join this event, please <Link to="/login">log in</Link> with your approved CFC WA Account.</p>
-                                            :
-                                            <p></p>
-                                    }
-                                    <p>Current number of participants: {result.eventParticipants.length}</p>
-                                    
-                                </div>
+                                        </div>
 
-                                {result.eventImageURL &&
-                                    <div class="eventfeedphoto">
-                                        <img src={result.eventImageURL} />
+                                        <div class="eventfeedmain">
+                                            <p><span className="highlight">{result.eventTitle} </span></p>
+                                            <p>Details: {result.eventDescription}</p>
+                                            <p>Type of Event: {result.eventType}</p>
+                                            {
+                                                (result.eventParticipants) ?
+                                                    result.eventParticipants.includes(user.id) ?
+                                                        <p><button type="submit" className="buttonRed" onClick={() => this.unjoinHandler(result._id)}>Back out of event</button></p> :
+                                                        this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
+                                                            this.props.auth.user.memberType.includes('admin')) ?
+                                                            <p><button type="submit" className="buttonGreen" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
+                                                            <p>To join this event, please <Link to="/login">log in</Link> with your approved CFC WA Account.</p>
+                                                    :
+                                                    <p></p>
+                                            }
+                                            <p>Current number of participants: {result.eventParticipants.length}</p>
+                                            {
+                                                (this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
+                                                    this.props.auth.user.memberType == 'admin'))
+                                                    && (result.eventParticipants.length > 0) ?
+                                                    result.creator_id == user.id ||
+                                                        this.props.auth.user.memberType.includes('admin') ?
+                                                        <p><button type="submit" className="buttonGrey" onClick={() => this.printEventDetailsHandler(result._id)}><i class="fas fa-print"></i></button></p>
+                                                        :
+                                                        <p></p>
+                                                    :
+                                                    <p></p>
+                                            }
+                                        </div>
+
+                                        {result.eventImageURL &&
+                                            <div class="eventfeedphoto">
+                                                <img src={result.eventImageURL} />
+                                            </div>
+                                        }
                                     </div>
-                                
-                                }
-                            </div>
 
-                           
-                            </div>
+
+                                </div>
+                                <hr></hr>
                             </section>
                         ))}
 
@@ -188,6 +222,16 @@ class EventsFeed extends Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" onClick={() => { this.toggle() }}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+                
+
+                <Modal className="modal-dialog modal-xl" isOpen={this.state.printEventModal} >
+                    <ModalBody>
+                        <EventDetails eventDetails={this.state.eventDetails} printEventModal={this.printEventModal} />
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="danger" onClick={() => { this.printEventModal() }}>Exit</Button>
                     </ModalFooter>
                 </Modal>
 

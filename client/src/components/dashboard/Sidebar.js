@@ -34,7 +34,7 @@ class Sidebar extends Component {
                             <i className="fas fa-user"></i><span>Profile</span>
                         </a>
                     </li> */}
-                    {this.props.auth.isAuthenticated && this.props.auth.user.memberType == 'admin' &&
+                    {this.props.auth.isAuthenticated && this.props.auth.user.memberType.includes('admin') &&
                         <li className="item" id="profile">
                             <a href="/admin/members/manage" className="menu-btn">
                                 <i className="fas fa-users"></i><span>Members
@@ -46,7 +46,7 @@ class Sidebar extends Component {
                             </div> */}
                         </li>
                     }
-                    {this.props.auth.isAuthenticated && this.props.auth.user.memberType == 'admin' &&
+                    {this.props.auth.isAuthenticated && this.props.auth.user.memberType.includes('admin') &&
                         <li className="item" id="messages">
                             <a href="/admin/events/manage" className="menu-btn">
                                 <i className="far fa-calendar-alt"></i><span>Events
@@ -58,7 +58,7 @@ class Sidebar extends Component {
                             </div> */}
                         </li>
                     }
-                    {this.props.auth.isAuthenticated && this.props.auth.user.memberType == 'admin' &&
+                    {this.props.auth.isAuthenticated && this.props.auth.user.memberType.includes('admin') &&
                         <li className="item" id="messages">
                             <a href="/admin/events/manage" className="menu-btn">
                                 <i className="far fa-newspaper"></i><span>News

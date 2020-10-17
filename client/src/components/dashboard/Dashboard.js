@@ -11,6 +11,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     let currentDate = Moment.now();
+
   }
 
   onLogoutClick = (e) => {
@@ -25,11 +26,30 @@ class Dashboard extends Component {
         <header>
           <Navbar />
         </header>
-        {this.props.auth.isAuthenticated && user.memberType.includes("admin") &&
-          <div className='dashboardSections'>
-            <Sidebar />
-          </div>
-        }
+
+        <div className='dashboardSections'>
+
+          {this.props.auth.isAuthenticated && user.memberType.includes("admin") &&
+            <div className='dashboardSections'>
+              <Sidebar />
+            </div>
+          }
+
+        <h1>Greetings in Christ, {user.firstName}!</h1>
+          
+        </div>
+
+        <iframe
+            src="https://universalis.com/readings.htm"
+            name="universalis"
+            width="100%"
+            height="100%"
+            scrolling="auto"
+            align="bottom"
+            frameborder="3">
+            <a href="http://universalis.com">Please visit the
+   Universalis web site</a>.
+ </iframe>
 
       </body>
     );
