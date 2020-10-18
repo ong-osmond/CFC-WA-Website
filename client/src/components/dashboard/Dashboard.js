@@ -50,17 +50,52 @@ class Dashboard extends Component {
             <div className='dashboardSections'>
               <Sidebar />
 
-              <section id="display">
+              {/* <section id="display">
                 <div className="dash-main-container">
+                <h1>Greetingsss in Christ, {user.firstName}!</h1>
+            </div>
 
+            <div className="dashboard-home">
+                  <article id="recent-updates">
+                      <h1>Latesttt Updates</h1>
+                      <hr></hr>
+                      <p>hello</p>
+                  </article>
+                                                
+                  <aside id="latest-news">
+                      <h1>Latest News</h1>
+                      <hr></hr>
+                      <p>hello</p>
+                  </aside>
+              </div> 
 
-                </div>
-              </section>
+              </section> */}
 
             </div>
           }
 
-                <h1>Greetings in Christ, {user.firstName}!</h1>
+          <section id="dash_home_display">
+            <div className="container">
+              <h1>Greetings in Christ, {user.firstName}!</h1>
+            </div>
+
+            <div className="dashboard-home">
+                  <article id="recent-updates">
+                      <h1>Latest Updates</h1>
+                      <hr></hr>
+                      <p>hello</p>
+                  </article>
+                                                
+                  <aside id="latest-news">
+                      <h1>Latest News</h1>
+                      <hr></hr>
+                      <p>hello</p>
+                  </aside>
+              </div>
+
+          </section>
+
+                
            
         </div>
 
