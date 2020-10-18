@@ -28,8 +28,8 @@ router.post("/member/create", (req, res) => {
 // @route GET member:id
 // @desc Get member info
 // @access Private
-router.get("/member:id", (req, res) => {
-    db.Member.find({ _id : req.params.id }).then(member => {
+router.get("/member:user_id", (req, res) => {
+    db.Member.find({ user_id : req.params.user_id }).then(member => {
       // Check if members exist
       if (!member) {
         return res.status(404).json({ memberNotFound: "No member found." });

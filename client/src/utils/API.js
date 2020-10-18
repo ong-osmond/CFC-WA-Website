@@ -79,8 +79,8 @@ export default {
   ,
   
   // Get member info
-  getMemberInfo: function (id) {
-    return axios.get("/api/users/user/info" + id);
+  getMemberInfo: function (user_id) {
+    return axios.get("/api/members/member" + user_id);
   }
 
 };
