@@ -125,8 +125,6 @@ router.put("/post/unapprove:id", (req, res) => {
 }
 );
 
-
-
 // @route PUT api/post/remove
 // @desc PUT Remove post
 // @access Private

@@ -370,10 +370,33 @@ header a:hover{
     float: right;
   }
 
-  .eventfeedphoto img{
+.eventfeedphoto img{
     width: 180px;
     height: 180px;
   }
+
+  .postfeedmain .column {
+    margin-left: 18px;
+  }
+
+.postfeedmain .highlight{
+    color: #415a84;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.postfeedphoto{
+    width: 30%;
+    float: left;
+    margin-left: 18px;
+  }
+
+.postfeedphoto img{
+    width: 360px;
+    height: 360px;
+    float: left;
+  }
+
 
 /*Sidebar*/
 aside#sidebar{
@@ -589,8 +612,14 @@ label #sidebar_btn:hover{
 
     #eventfeed .eventfeedimg,
     #eventfeed .eventfeedmain, 
-    #eventfeed .eventfeedphoto{
+    #eventfeed .eventfeedphoto {
         float:none;
+        width: 100%;
+    }
+
+
+    #postFeed .postfeedphoto{
+        float: 10%;
         width: 100%;
     }
 

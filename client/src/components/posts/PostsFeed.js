@@ -50,7 +50,7 @@ class PostsFeed extends Component {
             .catch(err => console.log(err));
     };
 
-    
+
     onLogoutClick = (e) => {
         e.preventDefault();
         this.props.logoutUser();
@@ -94,18 +94,26 @@ class PostsFeed extends Component {
                                 <div className="container">
 
                                     <div key={result._id}>
-                                        {result.postImageURL &&
-                                            <div className="eventfeedphoto">
-                                                <img src={result.postImageURL} />
-                                            </div>
-                                        }
-                                        <div className="eventfeedmain">
+                                        <div className="postfeedmain">
                                             <p><span className="highlight">{result.postTitle} </span></p>
-                                            <p>Posted by {result.creator_details[0].firstName}&nbsp;{result.creator_details[0].lastName}&nbsp;on:&nbsp; {Moment(result.creationDate).format('DD MMM yyyy')}</p>
+                                            <p>Posted by {result.creator_details[0].firstName}&nbsp;{result.creator_details[0].lastName}&nbsp;on:&nbsp; {Moment(result.creationDate).format('DD MMM yyyy hh:mm A')}</p>
+                                            <div className = "row">
+                                            {result.postImageURL &&
+                                                <div className="postfeedphoto column">
+                                                    <img src={result.postImageURL} />
+                                                </div>
+                                            }
+                                            <div className = "column">
                                             <p>{result.postText}</p>
+                                            </div>
+                                            </div>
+                                            
                                         </div>
 
-                                        
+
+
+
+
                                     </div>
 
 
@@ -126,7 +134,7 @@ class PostsFeed extends Component {
                         <Button color="danger" onClick={() => { this.toggle() }}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
-                
+
             </body>
         );
     }

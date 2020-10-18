@@ -38,7 +38,8 @@ class PostForm extends Component {
         let request = {
             postTitle: this.state.postTitle,
             postText: this.state.postText,
-            postImageURL: this.state.postImageURL
+            postImageURL: this.state.postImageURL,
+            creator_id : this.state.creator_id
         };
         API.createPost(request).then((res) => {
             toast.success('Thank you for submitting a post. The Administrator will review the post before it is published.', {
