@@ -116,7 +116,6 @@ class PostForm extends Component {
                     draggable
                     pauseOnHover
                 />
-
                 <FormGroup>
                     <Label for="postTitle">Title or Subject</Label>
                     <Input type="textarea" id="postTitle" onChange={this.handleInputChange} required />
@@ -125,9 +124,6 @@ class PostForm extends Component {
                     <Label for="postText">Details</Label>
                     <Input className="form-control input-lg" type="textarea" id="postText" onChange={this.handleInputChange} required />
                 </FormGroup>
-
-
-
                 <div className="form-group">
                     <Label>Upload a photo</Label>
                     <p><input type="file" /></p>

@@ -375,41 +375,36 @@ header a:hover{
     height: 180px;
   }
 
-  .postfeedmain .column {
-    margin-left: 18px;
-  }
+ 
 
-.postfeedmain .highlight{
-    color: #415a84;
-    font-size: x-large;
-    font-weight: bold;
+/*Newsfeed*/
+
+.newsfeed aside#news-main-col{
+    float: left;
+    width: 65%;
+    margin-top: 10px;
+    padding-left: 5px;
 }
 
-.postfeedphoto{
-    width: 30%;
-    float: left;
-    margin-left: 18px;
-  }
-
-.postfeedphoto img{
-    width: 360px;
-    height: 360px;
-    float: left;
-  }
+.newsfeed aside#news-main-col p{
+    text-align: justify;
+    text-justify: inter-word;
+}
 
 
-/*Sidebar*/
-aside#sidebar{
+/*newsfeed photo*/
+.newsfeed article#news-main-photo{
     float: right;
     width: 30%;
-    margin-top: 0px;
+    margin-top: 20px;
+    padding-left: 10px;
 }
 
-/*Main-col*/
-article#main-col{
-    float: left;
-    width:65%;
+.newsfeed article#news-main-photo img{
+    width: 100%;
+    height: auto;
 }
+
 
 .dark{
     padding:15px;
@@ -434,7 +429,7 @@ article#main-col{
     position: relative;
     /* margin-top: 25px; */
     width: 250px;
-    height: calc(100% - 9%);
+    height: calc(100% - 0%);
     transition: 0.5s;
     transition-property: left;
     /* overflow-y: auto; */
@@ -612,7 +607,10 @@ label #sidebar_btn:hover{
 
     #eventfeed .eventfeedimg,
     #eventfeed .eventfeedmain, 
-    #eventfeed .eventfeedphoto {
+    #eventfeed .eventfeedphoto,
+    .newsfeed aside#news-main-col,
+    .newsfeed article#news-main-photo,
+    article#news-main-photo img {
         float:none;
         width: 100%;
     }

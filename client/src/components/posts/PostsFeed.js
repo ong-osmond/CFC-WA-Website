@@ -82,7 +82,10 @@ class PostsFeed extends Component {
                     <div className="container">
                         {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
                             this.props.auth.user.memberType == 'admin') &&
-                            <Button color="success" onClick={() => { this.toggle() }} className="addEventBtn">Post Something</Button>
+                            <Button color="success" onClick={() => {
+                                this.toggle()
+                            }}
+                                className="addEventBtn">Post Something</Button>
                         }
 
                         <h2>News</h2>
@@ -94,21 +97,26 @@ class PostsFeed extends Component {
                                 <div className="container">
 
                                     <div key={result._id}>
-                                        <div className="postfeedmain">
-                                            <p><span className="highlight">{result.postTitle} </span></p>
-                                            <p>Posted by {result.creator_details[0].firstName}&nbsp;{result.creator_details[0].lastName}&nbsp;on:&nbsp; {Moment(result.creationDate).format('DD MMM yyyy hh:mm A')}</p>
-                                            <div className = "row">
-                                            {result.postImageURL &&
-                                                <div className="postfeedphoto column">
-                                                    <img src={result.postImageURL} />
-                                                </div>
-                                            }
-                                            <div className = "column">
-                                            <p>{result.postText}</p>
+
+                                        <div className="newsfeed">
+                                            <h1>{result.postTitle}</h1>
+                                            {/* <p><span className="highlight">{result.postTitle} </span></p> */}
+                                            <h6>Posted by {result.creator_details[0].firstName}&nbsp;{result.creator_details[0].lastName}&nbsp;on:&nbsp; {Moment(result.creationDate).format('DD MMM yyyy hh:mm A')}</h6>
+                                            <div className="row">
+                                                {result.postImageURL &&
+                                                    <article id="news-main-photo">
+                                                        <img src={result.postImageURL} />
+                                                    </article>
+                                                }
+                                                <aside id="news-main-col">
+                                                    <p>{result.postText}</p>
+                                                </aside>
+
+
                                             </div>
-                                            </div>
-                                            
+
                                         </div>
+
 
 
 

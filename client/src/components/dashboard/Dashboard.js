@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
@@ -8,6 +9,22 @@ import Moment from 'moment';
 import Sidebar from "../dashboard/Sidebar";
 
 class Dashboard extends Component {
+
+  constructor(props) {
+
+    super(props);
+
+    this.state = {
+      displayModal: false,
+    };
+  }
+
+  toggle = () => {
+    let toggledValue = !this.state.displayModal;
+    this.setState({
+      displayModal: toggledValue,
+    });
+  };
 
   componentDidMount() {
     let currentDate = Moment.now();
@@ -32,24 +49,33 @@ class Dashboard extends Component {
           {this.props.auth.isAuthenticated && user.memberType.includes("admin") &&
             <div className='dashboardSections'>
               <Sidebar />
+
+              <section id="display">
+                <div className="dash-main-container">
+
+
+                </div>
+              </section>
+
             </div>
           }
 
-        <h1>Greetings in Christ, {user.firstName}!</h1>
-          
+                <h1>Greetings in Christ, {user.firstName}!</h1>
+           
         </div>
 
-        <iframe
-            src="https://universalis.com/readings.htm"
-            name="universalis"
-            width="100%"
-            height="100%"
-            scrolling="auto"
-            align="bottom"
-            frameborder="3">
-            <a href="http://universalis.com">Please visit the
-   Universalis web site</a>.
- </iframe>
+        {/* <iframe
+          src="https://universalis.com/readings.htm"
+          name="universalis"
+          width="100%"
+          height="100%"
+          scrolling="auto"
+          align="bottom"
+          frameborder="3">
+          <a href="http://universalis.com">Please visit the
+   Universalis web site</a>
+        </iframe> */}
+
 
       </body>
     );

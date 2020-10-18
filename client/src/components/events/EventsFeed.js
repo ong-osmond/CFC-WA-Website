@@ -176,7 +176,7 @@ class EventsFeed extends Component {
                                             {
                                                 (result.eventParticipants) ?
                                                     result.eventParticipants.includes(user.id) ?
-                                                        <p><button type="submit" className="buttonRed" onClick={() => this.unjoinHandler(result._id)}>Back out of event</button></p> :
+                                                        <p><button type="submit" className="buttonRed" onClick={() => this.unjoinHandler(result._id)}>Cancel Join</button></p> :
                                                         this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
                                                             this.props.auth.user.memberType.includes('admin')) ?
                                                             <p><button type="submit" className="buttonGreen" onClick={() => this.joinHandler(result._id)}>Join</button></p> :
