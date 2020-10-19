@@ -27,6 +27,17 @@ Note: The config "SERVER.JS" file handles the connections in the Heroku environm
 
 ## Usage: 
 
+These are the pages to the website:
+
+The landing page:
+![Landing Page](client/src/images/01-CFC-WA-Landing-Page.png)
+
+The upcoming events page:
+![Events Page](client/src/images/02-CFC-WA-Events-Page.png)
+
+The dashboard for an admin who manages users, events and news in the website:
+![Admin Dashboard Page](client/src/images/03-CFC-WA-Admin-Dashboard-Page.png)
+
 ## Contributing: 
 This is a personal repository. Pull requests are not allowed unless you are a member of Couples for Christ.
 

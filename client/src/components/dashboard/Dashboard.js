@@ -83,13 +83,13 @@ class Dashboard extends Component {
                   <article id="recent-updates">
                       <h1>Latest Updates</h1>
                       <hr></hr>
-                      <p>You have (0) news.</p>
+                      <p>You have (0) new update(s).</p>
                   </article>
                                                 
                   <aside id="latest-news">
                       <h1>Latest News</h1>
                       <hr></hr>
-                      <p>You have (0) new updates</p>
+                      <p>You have (0) recent news.</p>
                   </aside>
               </div>
 

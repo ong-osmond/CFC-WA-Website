@@ -11,6 +11,7 @@ class EventDetails extends Component {
     render() {
         return (
             <body>
+                <a href="javascript:if(window.print)window.print()"><i className="fas fa-print"></i></a>
                 {this.props.eventDetails.map(result => (
                     <div>
                         <div>
