@@ -339,6 +339,8 @@ header a:hover{
 
 .eventfeedmain p{
     padding-left: 40px;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .eventfeedmain .highlight{
@@ -379,6 +381,7 @@ header a:hover{
  
 
 /*Newsfeed*/
+
 
 .newsfeed aside#news-main-col{
     float: left;
