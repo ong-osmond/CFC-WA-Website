@@ -25,7 +25,7 @@ class AdminManageNews extends Component {
   loadPosts = () => {
     API.managePosts()
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         this.setState({ posts: res.data })
       })
       .catch(err => console.log(err));

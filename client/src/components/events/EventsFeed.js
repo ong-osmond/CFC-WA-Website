@@ -106,7 +106,7 @@ class EventsFeed extends Component {
     printEventDetailsHandler = (id) => {
         API.printEventDetails(id)
             .then((res) => {
-                console.log(res);
+                //console.log(res);
                 this.setState({ eventDetails: res.data });
                 this.printEventModal();
             })
@@ -184,7 +184,11 @@ class EventsFeed extends Component {
                                                     :
                                                     <p></p>
                                             }
-                                            <p>Current number of participants: {result.eventParticipants.length}</p>
+                                            {this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
+                                                this.props.auth.user.memberType == 'admin') &&
+
+                                                <p>Current number of participants: {result.eventParticipants.length}</p>
+                                            }
                                             {
                                                 (this.props.auth.isAuthenticated && (this.props.auth.user.memberType == 'member' ||
                                                     this.props.auth.user.memberType == 'admin'))
@@ -224,7 +228,7 @@ class EventsFeed extends Component {
                         <Button color="danger" onClick={() => { this.toggle() }}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
-                
+
 
                 <Modal className="modal-dialog modal-xl" isOpen={this.state.printEventModal} >
                     <ModalBody>

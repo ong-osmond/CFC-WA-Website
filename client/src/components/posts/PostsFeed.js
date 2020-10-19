@@ -44,7 +44,7 @@ class PostsFeed extends Component {
     loadPosts = () => {
         API.getPosts()
             .then((res) => {
-                console.log(res);
+                //console.log(res);
                 this.setState({ posts: res.data })
             })
             .catch(err => console.log(err));
@@ -101,7 +101,7 @@ class PostsFeed extends Component {
                                         <div className="newsfeed">
                                             <h1>{result.postTitle}</h1>
                                             {/* <p><span className="highlight">{result.postTitle} </span></p> */}
-                                            <h6>Posted by {result.creator_details[0].firstName}&nbsp;{result.creator_details[0].lastName}&nbsp;on:&nbsp; {Moment(result.creationDate).format('DD MMM yyyy hh:mm A')}</h6>
+                                            <h6>Posted by {result.creator_details[0].firstName}&nbsp;{result.creator_details[0].lastName}&nbsp;on&nbsp;{Moment(result.creationDate).format('DD MMM yyyy hh:mm A')}</h6>
                                             <div className="row">
                                                 {result.postImageURL &&
                                                     <article id="news-main-photo">

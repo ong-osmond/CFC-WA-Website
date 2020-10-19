@@ -22,7 +22,7 @@ class Profile extends Component {
     loadMemberInfo = () => {
         API.getMemberInfo("5f7dc53caaf881359cfca7cb")
             .then((res) => {
-                console.log(res);
+                //console.log(res);
                 //this.setState({ events: res.data })
             })
             .catch(err => console.log(err));

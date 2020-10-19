@@ -24,7 +24,7 @@ class AdminManageMembers extends Component {
   loadUsers = () => {
     API.getUsers()
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         this.setState({ users: res.data })
       })
       .catch(err => console.log(err));
@@ -33,7 +33,7 @@ class AdminManageMembers extends Component {
 
   approveMemberHandler = (id) => {
     API.approveMember(id).then((res) => {
-      console.log(res);
+      //console.log(res);
       this.loadUsers()
     })
       .catch((err) => {
